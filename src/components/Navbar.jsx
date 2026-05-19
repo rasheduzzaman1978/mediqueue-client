@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { FaBars, FaTimes } from "react-icons/fa";
-
 import {
+  FaBars,
+  FaTimes,
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
@@ -21,17 +21,20 @@ import {
   NavbarItem,
 } from "@heroui/navbar";
 
-import { Avatar, Button } from "@heroui/react";
+import {
+  Avatar,
+  Button,
+} from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
-
 
 // ====================== NAVBAR ======================
 
 export default function CustomNavbar() {
   const pathname = usePathname();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] =
+    useState(false);
 
   const userData = authClient.useSession();
   const user = userData.data?.user;
@@ -52,23 +55,26 @@ export default function CustomNavbar() {
     },
   ];
 
+  // Logout
   const handleLogout = async () => {
     await authClient.signOut();
   };
 
   return (
     <div className="w-full shadow bg-[#0B1120] text-white sticky top-0 z-50">
+
       <Navbar
         maxWidth="full"
         className="px-2 md:px-4 py-4 bg-[#0B1120]"
       >
+
         {/* Left → Logo */}
         <NavbarContent
           justify="start"
           className="flex-1"
         >
           <NavbarBrand>
-           <Link
+            <Link
               href="/"
               className="flex items-center"
             >
@@ -84,9 +90,11 @@ export default function CustomNavbar() {
           justify="center"
           className="hidden md:flex flex-1 items-center space-x-6"
         >
+
           {/* Public Links */}
           {publicLinks.map((link) => {
-            const isActive = pathname === link.path;
+            const isActive =
+              pathname === link.path;
 
             return (
               <NavbarItem key={link.path}>
@@ -111,7 +119,8 @@ export default function CustomNavbar() {
           {/* Private Links */}
           {user &&
             privateLinks.map((link) => {
-              const isActive = pathname === link.path;
+              const isActive =
+                pathname === link.path;
 
               return (
                 <NavbarItem key={link.path}>
@@ -136,6 +145,7 @@ export default function CustomNavbar() {
 
         {/* Right Side */}
         <NavbarContent className="flex-1 flex justify-end items-center">
+
           {/* Mobile Hamburger */}
           <div className="md:hidden mr-2">
             <button
@@ -154,31 +164,56 @@ export default function CustomNavbar() {
 
           {/* Desktop Auth */}
           <div className="hidden md:block">
-            {!user ? (
-              <div className="flex items-center gap-3">
-                <Link href="/login">
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Login
-                  </Button>
-                </Link>
 
-                <Link href="/signup">
-                  <Button className="bg-gray-700 hover:bg-gray-800 text-white">
-                    Register
-                  </Button>
-                </Link>
-              </div>
+            {/* Not Logged In */}
+            {!user ? (
+              <ul className="flex items-center gap-4">
+
+                <li>
+                  <Link href="/login">
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                      Login
+                    </Button>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link href="/register">
+                    <Button className="bg-gray-700 hover:bg-gray-800 text-white">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </li>
+
+              </ul>
             ) : (
-              <div className="relative group">
+
+              /* Logged In User */
+              <div className="relative group flex items-center gap-4">
+
                 {/* Avatar */}
                 <Avatar
                   size="sm"
-                  src={user?.image}
                   className="cursor-pointer"
-                />
+                >
+                  <Avatar.Image
+                    alt={
+                      user?.name || "User"
+                    }
+                    src={user?.image}
+                    referrerPolicy="no-referrer"
+                  />
+
+                  <Avatar.Fallback>
+                    {user?.name?.charAt(0) ||
+                      "G"}
+                  </Avatar.Fallback>
+                </Avatar>
 
                 {/* Dropdown */}
-                <div className="absolute right-0 mt-3 w-52 bg-white text-black rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
+                <div className="absolute right-0 top-10 w-56 bg-white text-black rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
+
+                  {/* User Info */}
                   <div className="px-4 py-3 border-b">
                     <p className="font-semibold">
                       {user?.name || "User"}
@@ -189,6 +224,7 @@ export default function CustomNavbar() {
                     </p>
                   </div>
 
+                  {/* Profile */}
                   <Link
                     href="/profile"
                     className="block px-4 py-3 hover:bg-gray-100 transition"
@@ -196,12 +232,14 @@ export default function CustomNavbar() {
                     My Profile
                   </Link>
 
+                  {/* Logout */}
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-500 transition"
                   >
                     Logout
                   </button>
+
                 </div>
               </div>
             )}
@@ -209,12 +247,14 @@ export default function CustomNavbar() {
         </NavbarContent>
       </Navbar>
 
-      {/* Mobile Menu */}
+      {/* ================= MOBILE MENU ================= */}
       {isMenuOpen && (
         <div className="md:hidden bg-[#0B1120] text-white border-t border-gray-700 px-6 py-4 space-y-3">
+
           {/* Public Links */}
           {publicLinks.map((link) => {
-            const isActive = pathname === link.path;
+            const isActive =
+              pathname === link.path;
 
             return (
               <Link
@@ -237,7 +277,8 @@ export default function CustomNavbar() {
           {/* Private Links */}
           {user &&
             privateLinks.map((link) => {
-              const isActive = pathname === link.path;
+              const isActive =
+                pathname === link.path;
 
               return (
                 <Link
@@ -262,6 +303,7 @@ export default function CustomNavbar() {
           {/* Mobile Auth */}
           {!user ? (
             <div className="space-y-3">
+
               <Link
                 href="/login"
                 onClick={() =>
@@ -283,9 +325,11 @@ export default function CustomNavbar() {
                   Register
                 </Button>
               </Link>
+
             </div>
           ) : (
             <div className="space-y-3">
+
               <Link
                 href="/profile"
                 onClick={() =>
@@ -306,6 +350,7 @@ export default function CustomNavbar() {
               >
                 Logout
               </Button>
+
             </div>
           )}
         </div>
@@ -313,4 +358,3 @@ export default function CustomNavbar() {
     </div>
   );
 }
-

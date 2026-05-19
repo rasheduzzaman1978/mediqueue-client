@@ -1,127 +1,203 @@
 "use client";
-import { FcGoogle } from "react-icons/fc";
-import { Card, Separator } from "@heroui/react";
 
-import {
-  Button,
-  Description,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  TextField,
-} from "@heroui/react";
-import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useState } from "react";
+import { Button, Card } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { createAuthClient } from "better-auth/react";
 
-const SignUpPage = () => {
-  const onSubmit = async (e) => {
-    e.preventDefault();
+const authClient = createAuthClient();
 
-    const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries());
+export default function RegisterPage() {
+  const router = useRouter();
 
-    const { data, error } = await authClient.signUp.email({
-      email: user.email,
-      password: user.password,
-      name: user.name,
-      image: user.image,
-    });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    image: "",
+  });
 
-    if (data) {
-      redirect("/");
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // 🔥 Validation
+  const validate = () => {
+    let newErrors = {};
+
+    if (!form.name) newErrors.name = "Name is required";
+
+    if (!form.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+      newErrors.email = "Invalid email";
     }
 
-    if (error) {
-      // toast
-      alert("Error");
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    } else if (form.password.length < 6) {
+      newErrors.password = "Minimum 6 characters";
     }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleGoogleSignin = async() => {
-    await authClient.signIn.social({
-        provider: "google"
-    })
+  // 🔐 Register
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-  }
+    if (!validate()) {
+      toast.error("Please fix the errors");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await authClient.signUp.email({
+        email: form.email,
+        password: form.password,
+        name: form.name,
+        image: form.image || undefined,
+      });
+
+      if (res?.error) {
+        toast.error(res.error.message || "Registration failed");
+      } else {
+        toast.success("Registration successful 🎉");
+        router.push("/login");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+
+    setLoading(false);
+  };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="text-center my-3">
-        <h1 className="text-2xl font-bold">Create Account</h1>
-        <p>Start your adventure with Wanderlust</p>
-      </div>
-      <Card className="border rounded-none">
-        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
-          <TextField isRequired name="name" type="text">
-            <Label>Name</Label>
-            <Input placeholder="Enter your name" />
-            <FieldError />
-          </TextField>
+    <div className="flex items-center justify-center bg-gray-100 px-4">
+      <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
 
-          <TextField name="image" type="url">
-            <Label>Image URL</Label>
-            <Input placeholder="Image url" />
-            <FieldError />
-          </TextField>
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+          Create an Account
+        </h2>
 
-          <TextField
-            isRequired
-            name="email"
-            type="email"
-            validate={(value) => {
-              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                return "Please enter a valid email address";
+        <form onSubmit={handleRegister} className="space-y-5">
+
+          {/* Name */}
+          <div>
+            <label className="text-sm text-gray-600">
+              Name <span className="text-red-500 font-bold">*</span>
+            </label>
+            <input
+              type="text"
+              value={form.name}
+              placeholder="Enter your name"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
+                errors.name ? "border-red-500" : "focus:border-blue-500"
+              }`}
+              onChange={(e) =>
+                setForm({ ...form, name: e.target.value })
               }
-              return null;
-            }}
-          >
-            <Label>Email</Label>
-            <Input placeholder="john@example.com" />
-            <FieldError />
-          </TextField>
-          <TextField
-            isRequired
-            minLength={8}
-            name="password"
-            type="password"
-            validate={(value) => {
-              if (value.length < 8) {
-                return "Password must be at least 8 characters";
-              }
-              if (!/[A-Z]/.test(value)) {
-                return "Password must contain at least one uppercase letter";
-              }
-              if (!/[0-9]/.test(value)) {
-                return "Password must contain at least one number";
-              }
-              return null;
-            }}
-          >
-            <Label>Password</Label>
-            <Input placeholder="Enter your password" />
-            <Description>
-              Must be at least 8 characters with 1 uppercase and 1 number
-            </Description>
-            <FieldError />
-          </TextField>
-          <div className="flex justify-center gap-2">
-            <Button className={"rounded-none w-full bg-cyan-500"} type="submit">
-              Create Account
-            </Button>
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
           </div>
-        </Form>
-        <div className="flex justify-center items-center gap-3">
-            <Separator/>
-           <div className="whitespace-nowrap"> Or sign up with </div>
-              <Separator/>
-            </div>
-        <div>
-            <Button onClick={handleGoogleSignin} variant="outline" className={'w-full rounded-none'}><FcGoogle /> Sign in with Google</Button>
-        </div>
+
+          {/* Photo */}
+          <div>
+            <label className="text-sm text-gray-600">
+              Photo URL
+            </label>
+            <input
+              type="text"
+              value={form.image}
+              placeholder="https://example.com/photo.jpg"
+              className="w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              onChange={(e) =>
+                setForm({ ...form, image: e.target.value })
+              }
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="text-sm text-gray-600">
+              Email <span className="text-red-500 font-bold">*</span>
+            </label>
+            <input
+              type="email"
+              value={form.email}
+              placeholder="john@example.com"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
+                errors.email ? "border-red-500" : "focus:border-blue-500"
+              }`}
+              onChange={(e) =>
+                setForm({ ...form, email: e.target.value })
+              }
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div className="relative">
+            <label className="text-sm text-gray-600">
+              Password <span className="text-red-500 font-bold">*</span>
+            </label>
+
+            <input
+              type={showPassword ? "text" : "password"}
+              value={form.password}
+              placeholder="••••••••"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none ${
+                errors.password ? "border-red-500" : "focus:border-blue-500"
+              }`}
+              onChange={(e) =>
+                setForm({ ...form, password: e.target.value })
+              }
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-10 text-gray-500"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
+            )}
+          </div>
+
+          {/* Button */}
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            {loading ? "Registering..." : "Register"}
+          </Button>
+
+        </form>
+
+        <p className="text-center mt-5 text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </p>
+
       </Card>
     </div>
   );
-};
-
-export default SignUpPage;
+}
