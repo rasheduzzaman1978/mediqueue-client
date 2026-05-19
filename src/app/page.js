@@ -1,9 +1,11 @@
-export default function Home() {
+import HeroSection from "@/components/home/HeroSection";
+
+
+export default function HomePage() {
   return (
-    <section className="flex items-center justify-center py-20">
-      <h1 className="text-4xl font-bold">
-        Home page
-      </h1>
-    </section>
+    <div className="bg-[#020817] text-white">
+      <HeroSection />
+     
+    </div>
   );
 }
