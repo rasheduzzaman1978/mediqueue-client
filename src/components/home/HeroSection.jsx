@@ -16,7 +16,7 @@ const slides = [
     highlight: "Anytime, Anywhere",
     description:
       "Find experienced tutors for online and offline learning with flexible schedules.",
-    image: "https://i.ibb.co.com/7t8B7H2d/images.jpg",
+    image: "https://i.ibb.co/7t8B7H2d/images.jpg",
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const slides = [
     highlight: "Boost Your Skills",
     description:
       "Connect with qualified tutors to improve academic performance and confidence.",
-    image: "https://i.ibb.co.com/RG5fTqDJ/images.webp",
+    image: "https://i.ibb.co/RG5fTqDJ/images.webp",
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const slides = [
     highlight: "At Your Convenience",
     description:
       "Schedule classes based on your availability and learn at your own pace.",
-    image: "https://i.ibb.co.com/dsdPL34f/Whats-App-Image-2025-12-24-at-7-36-27-PM.avif",
+    image: "https://i.ibb.co/dsdPL34f/Whats-App-Image-2025-12-24-at-7-36-27-PM.avif",
   },
 ];
 

@@ -10,7 +10,7 @@ export default function Testimonials() {
       name: "Sarah Johnson",
       role: "Student",
       image:
-        "https://i.ibb.co.com/7t8B7H2d/images.jpg",
+        "https://i.ibb.co/7t8B7H2d/images.jpg",
       review:
         "TutorQueue made finding tutors very easy and flexible.",
     },
@@ -20,7 +20,7 @@ export default function Testimonials() {
       name: "David Miller",
       role: "Student",
       image:
-        "https://i.ibb.co.com/7t8B7H2d/images.jpg",
+        "https://i.ibb.co/7t8B7H2d/images.jpg",
       review:
         "Amazing platform for booking learning sessions quickly.",
     },
@@ -30,7 +30,7 @@ export default function Testimonials() {
       name: "Emma Watson",
       role: "Student",
       image:
-        "https://i.ibb.co.com/7t8B7H2d/images.jpg",
+        "https://i.ibb.co/7t8B7H2d/images.jpg",
       review:
         "The tutors are experienced and very supportive.",
     },
