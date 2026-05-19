@@ -162,7 +162,7 @@ export default function CustomNavbar() {
                   </Button>
                 </Link>
 
-                <Link href="/register">
+                <Link href="/signup">
                   <Button className="bg-gray-700 hover:bg-gray-800 text-white">
                     Register
                   </Button>
