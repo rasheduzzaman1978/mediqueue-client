@@ -7,12 +7,7 @@ import { useState } from "react";
 import {
   FaBars,
   FaTimes,
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
 } from "react-icons/fa";
-
-import { FaXTwitter } from "react-icons/fa6";
 
 import {
   Navbar,
@@ -36,26 +31,31 @@ export default function CustomNavbar() {
   const [isMenuOpen, setIsMenuOpen] =
     useState(false);
 
-  const userData = authClient.useSession();
-  const user = userData.data?.user;
+  // ================= SESSION =================
 
-  // Public Links
+  const { data: session } =
+    authClient.useSession();
+
+  const user = session?.user;
+
+  // ================= LINKS =================
+
   const publicLinks = [
     { name: "Home", path: "/" },
     { name: "Tutors", path: "/tutors" },
   ];
 
-  // Private Links
   const privateLinks = [
     { name: "Add Tutor", path: "/add-tutor" },
     { name: "My Tutors", path: "/my-tutors" },
     {
-      name: "My Booked Sessions",
+      name: "Booked Sessions",
       path: "/my-booked-sessions",
     },
   ];
 
-  // Logout
+  // ================= LOGOUT =================
+
   const handleLogout = async () => {
     await authClient.signOut();
   };
@@ -65,10 +65,11 @@ export default function CustomNavbar() {
 
       <Navbar
         maxWidth="full"
-        className="px-2 md:px-4 py-4 bg-[#0B1120]"
+        className="px-2 lg:px-4 py-4 bg-[#0B1120]"
       >
 
-        {/* Left → Logo */}
+        {/* ================= LEFT → LOGO ================= */}
+
         <NavbarContent
           justify="start"
           className="flex-1"
@@ -76,22 +77,25 @@ export default function CustomNavbar() {
           <NavbarBrand>
             <Link
               href="/"
+              prefetch={true}
               className="flex items-center"
             >
-              <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              <h1 className="text-2xl lg:text-3xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap">
                 TutorQueue
               </h1>
             </Link>
           </NavbarBrand>
         </NavbarContent>
 
-        {/* Center → Menu */}
+        {/* ================= CENTER → MENU ================= */}
+
         <NavbarContent
           justify="center"
-          className="hidden md:flex flex-1 items-center space-x-6"
+          className="hidden lg:flex flex-1 items-center gap-4 xl:gap-6 flex-nowrap whitespace-nowrap"
         >
 
-          {/* Public Links */}
+          {/* ===== Public Links ===== */}
+
           {publicLinks.map((link) => {
             const isActive =
               pathname === link.path;
@@ -100,7 +104,8 @@ export default function CustomNavbar() {
               <NavbarItem key={link.path}>
                 <Link
                   href={link.path}
-                  className={`relative transition duration-200 ${
+                  prefetch={true}
+                  className={`relative text-sm xl:text-base transition duration-200 ${
                     isActive
                       ? "text-white font-semibold"
                       : "text-gray-300 hover:text-blue-400"
@@ -116,7 +121,8 @@ export default function CustomNavbar() {
             );
           })}
 
-          {/* Private Links */}
+          {/* ===== Private Links ===== */}
+
           {user &&
             privateLinks.map((link) => {
               const isActive =
@@ -126,7 +132,8 @@ export default function CustomNavbar() {
                 <NavbarItem key={link.path}>
                   <Link
                     href={link.path}
-                    className={`relative transition duration-200 ${
+                    prefetch={true}
+                    className={`relative text-sm xl:text-base transition duration-200 ${
                       isActive
                         ? "text-white font-semibold"
                         : "text-gray-300 hover:text-blue-400"
@@ -143,11 +150,13 @@ export default function CustomNavbar() {
             })}
         </NavbarContent>
 
-        {/* Right Side */}
+        {/* ================= RIGHT SIDE ================= */}
+
         <NavbarContent className="flex-1 flex justify-end items-center">
 
-          {/* Mobile Hamburger */}
-          <div className="md:hidden mr-2">
+          {/* ===== Mobile Hamburger ===== */}
+
+          <div className="lg:hidden mr-2">
             <button
               onClick={() =>
                 setIsMenuOpen(!isMenuOpen)
@@ -162,15 +171,20 @@ export default function CustomNavbar() {
             </button>
           </div>
 
-          {/* Desktop Auth */}
-          <div className="hidden md:block">
+          {/* ================= DESKTOP AUTH ================= */}
 
-            {/* Not Logged In */}
+          <div className="hidden lg:block">
+
+            {/* ===== Not Logged In ===== */}
+
             {!user ? (
-              <ul className="flex items-center gap-4">
+              <ul className="flex items-center gap-3">
 
                 <li>
-                  <Link href="/login">
+                  <Link
+                    href="/login"
+                    prefetch={true}
+                  >
                     <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                       Login
                     </Button>
@@ -178,7 +192,10 @@ export default function CustomNavbar() {
                 </li>
 
                 <li>
-                  <Link href="/register">
+                  <Link
+                    href="/register"
+                    prefetch={true}
+                  >
                     <Button className="bg-gray-700 hover:bg-gray-800 text-white">
                       Sign Up
                     </Button>
@@ -188,10 +205,12 @@ export default function CustomNavbar() {
               </ul>
             ) : (
 
-              /* Logged In User */
+              /* ===== Logged In User ===== */
+
               <div className="relative group flex items-center gap-4">
 
                 {/* Avatar */}
+
                 <Avatar
                   size="sm"
                   className="cursor-pointer"
@@ -211,9 +230,11 @@ export default function CustomNavbar() {
                 </Avatar>
 
                 {/* Dropdown */}
+
                 <div className="absolute right-0 top-10 w-56 bg-white text-black rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
 
                   {/* User Info */}
+
                   <div className="px-4 py-3 border-b">
                     <p className="font-semibold">
                       {user?.name || "User"}
@@ -225,14 +246,17 @@ export default function CustomNavbar() {
                   </div>
 
                   {/* Profile */}
+
                   <Link
                     href="/profile"
+                    prefetch={true}
                     className="block px-4 py-3 hover:bg-gray-100 transition"
                   >
                     My Profile
                   </Link>
 
                   {/* Logout */}
+
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-500 transition"
@@ -248,10 +272,12 @@ export default function CustomNavbar() {
       </Navbar>
 
       {/* ================= MOBILE MENU ================= */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-[#0B1120] text-white border-t border-gray-700 px-6 py-4 space-y-3">
 
-          {/* Public Links */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-[#0B1120] text-white border-t border-gray-700 px-6 py-4 space-y-3">
+
+          {/* ===== Public Links ===== */}
+
           {publicLinks.map((link) => {
             const isActive =
               pathname === link.path;
@@ -260,6 +286,7 @@ export default function CustomNavbar() {
               <Link
                 key={link.path}
                 href={link.path}
+                prefetch={true}
                 onClick={() =>
                   setIsMenuOpen(false)
                 }
@@ -274,7 +301,8 @@ export default function CustomNavbar() {
             );
           })}
 
-          {/* Private Links */}
+          {/* ===== Private Links ===== */}
+
           {user &&
             privateLinks.map((link) => {
               const isActive =
@@ -284,6 +312,7 @@ export default function CustomNavbar() {
                 <Link
                   key={link.path}
                   href={link.path}
+                  prefetch={true}
                   onClick={() =>
                     setIsMenuOpen(false)
                   }
@@ -300,12 +329,14 @@ export default function CustomNavbar() {
 
           <div className="border-t border-gray-700 pt-3"></div>
 
-          {/* Mobile Auth */}
+          {/* ================= MOBILE AUTH ================= */}
+
           {!user ? (
             <div className="space-y-3">
 
               <Link
                 href="/login"
+                prefetch={true}
                 onClick={() =>
                   setIsMenuOpen(false)
                 }
@@ -317,6 +348,7 @@ export default function CustomNavbar() {
 
               <Link
                 href="/register"
+                prefetch={true}
                 onClick={() =>
                   setIsMenuOpen(false)
                 }
@@ -332,6 +364,7 @@ export default function CustomNavbar() {
 
               <Link
                 href="/profile"
+                prefetch={true}
                 onClick={() =>
                   setIsMenuOpen(false)
                 }

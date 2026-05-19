@@ -12,7 +12,7 @@ export default function HeroSection() {
             Smart Tutor Booking Platform
           </p>
 
-          <h1 className="text-5xl md:text-6xl font-black leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight">
             Book Trusted Tutors
             <span className="block text-blue-500">
               Anytime, Anywhere
@@ -25,10 +25,10 @@ export default function HeroSection() {
             learning sessions with flexible schedules.
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-8">
+          <div className="flex flex-row md:flex-wrap gap-2 md:gap-4 mt-8">
             <Link
               href="/tutors"
-              className="bg-blue-600 hover:bg-blue-700 px-7 py-3 rounded-xl font-semibold transition"
+              className="bg-blue-600 hover:bg-blue-700 px-7 py-3 text-sm md:text-base rounded-xl font-semibold transition"
             >
               Explore Tutors
             </Link>
