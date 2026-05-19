@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+
 import { FaBars, FaTimes } from "react-icons/fa";
+
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
+
+import { FaXTwitter } from "react-icons/fa6";
 
 import {
   Navbar,
@@ -13,8 +22,11 @@ import {
 } from "@heroui/navbar";
 
 import { Avatar, Button } from "@heroui/react";
+
 import { authClient } from "@/lib/auth-client";
-import Image from "next/image";
+
+
+// ====================== NAVBAR ======================
 
 export default function CustomNavbar() {
   const pathname = usePathname();
@@ -34,7 +46,10 @@ export default function CustomNavbar() {
   const privateLinks = [
     { name: "Add Tutor", path: "/add-tutor" },
     { name: "My Tutors", path: "/my-tutors" },
-    { name: "My Booked Sessions", path: "/my-booked-sessions" },
+    {
+      name: "My Booked Sessions",
+      path: "/my-booked-sessions",
+    },
   ];
 
   const handleLogout = async () => {
@@ -42,24 +57,25 @@ export default function CustomNavbar() {
   };
 
   return (
-    <div className="w-full shadow bg-gray-900 text-white sticky top-0 z-50">
-      <Navbar maxWidth="full" className="px-2 md:px-4 py-1 bg-gray-900">
+    <div className="w-full shadow bg-[#0B1120] text-white sticky top-0 z-50">
+      <Navbar
+        maxWidth="full"
+        className="px-2 md:px-4 py-4 bg-[#0B1120]"
+      >
         {/* Left → Logo */}
-        <NavbarContent justify="start" className="flex-1">
+        <NavbarContent
+          justify="start"
+          className="flex-1"
+        >
           <NavbarBrand>
            <Link
-            href="/"
-            className="flex items-center"
-          >
-            <Image
-              src="/logo.png"
-              alt="TutorHub Logo"
-              width={120}
-              height={120}
-              priority
-              className="object-contain"
-            />
-          </Link>
+              href="/"
+              className="flex items-center"
+            >
+              <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+                TutorQueue
+              </h1>
+            </Link>
           </NavbarBrand>
         </NavbarContent>
 
@@ -68,7 +84,6 @@ export default function CustomNavbar() {
           justify="center"
           className="hidden md:flex flex-1 items-center space-x-6"
         >
-
           {/* Public Links */}
           {publicLinks.map((link) => {
             const isActive = pathname === link.path;
@@ -77,10 +92,10 @@ export default function CustomNavbar() {
               <NavbarItem key={link.path}>
                 <Link
                   href={link.path}
-                  className={`relative transition ${
+                  className={`relative transition duration-200 ${
                     isActive
                       ? "text-white font-semibold"
-                      : "text-gray-300 hover:text-white"
+                      : "text-gray-300 hover:text-blue-400"
                   }`}
                 >
                   {link.name}
@@ -102,10 +117,10 @@ export default function CustomNavbar() {
                 <NavbarItem key={link.path}>
                   <Link
                     href={link.path}
-                    className={`relative transition ${
+                    className={`relative transition duration-200 ${
                       isActive
                         ? "text-white font-semibold"
-                        : "text-gray-300 hover:text-white"
+                        : "text-gray-300 hover:text-blue-400"
                     }`}
                   >
                     {link.name}
@@ -121,14 +136,19 @@ export default function CustomNavbar() {
 
         {/* Right Side */}
         <NavbarContent className="flex-1 flex justify-end items-center">
-
           {/* Mobile Hamburger */}
           <div className="md:hidden mr-2">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() =>
+                setIsMenuOpen(!isMenuOpen)
+              }
               className="text-2xl p-2 rounded-lg hover:bg-gray-800 transition"
             >
-              {isMenuOpen ? <FaTimes /> : <FaBars />}
+              {isMenuOpen ? (
+                <FaTimes />
+              ) : (
+                <FaBars />
+              )}
             </button>
           </div>
 
@@ -150,7 +170,6 @@ export default function CustomNavbar() {
               </div>
             ) : (
               <div className="relative group">
-
                 {/* Avatar */}
                 <Avatar
                   size="sm"
@@ -160,7 +179,6 @@ export default function CustomNavbar() {
 
                 {/* Dropdown */}
                 <div className="absolute right-0 mt-3 w-52 bg-white text-black rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
-
                   <div className="px-4 py-3 border-b">
                     <p className="font-semibold">
                       {user?.name || "User"}
@@ -193,8 +211,7 @@ export default function CustomNavbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-900 text-white border-t border-gray-700 px-6 py-4 space-y-3">
-
+        <div className="md:hidden bg-[#0B1120] text-white border-t border-gray-700 px-6 py-4 space-y-3">
           {/* Public Links */}
           {publicLinks.map((link) => {
             const isActive = pathname === link.path;
@@ -203,7 +220,9 @@ export default function CustomNavbar() {
               <Link
                 key={link.path}
                 href={link.path}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() =>
+                  setIsMenuOpen(false)
+                }
                 className={`block py-2 ${
                   isActive
                     ? "text-blue-400 font-semibold"
@@ -224,7 +243,9 @@ export default function CustomNavbar() {
                 <Link
                   key={link.path}
                   href={link.path}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() =>
+                    setIsMenuOpen(false)
+                  }
                   className={`block py-2 ${
                     isActive
                       ? "text-blue-400 font-semibold"
@@ -241,10 +262,11 @@ export default function CustomNavbar() {
           {/* Mobile Auth */}
           {!user ? (
             <div className="space-y-3">
-
               <Link
                 href="/login"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() =>
+                  setIsMenuOpen(false)
+                }
               >
                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                   Login
@@ -253,7 +275,9 @@ export default function CustomNavbar() {
 
               <Link
                 href="/register"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() =>
+                  setIsMenuOpen(false)
+                }
               >
                 <Button className="w-full bg-gray-700 hover:bg-gray-800 text-white">
                   Register
@@ -262,10 +286,11 @@ export default function CustomNavbar() {
             </div>
           ) : (
             <div className="space-y-3">
-
               <Link
                 href="/profile"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() =>
+                  setIsMenuOpen(false)
+                }
                 className="block py-2 text-gray-300"
               >
                 My Profile
@@ -288,3 +313,4 @@ export default function CustomNavbar() {
     </div>
   );
 }
+

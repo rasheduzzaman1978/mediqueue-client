@@ -1,10 +1,9 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div>
-      Home page
-    </div>
-    
+    <section className="flex items-center justify-center py-20">
+      <h1 className="text-4xl font-bold">
+        Home page
+      </h1>
+    </section>
   );
 }
