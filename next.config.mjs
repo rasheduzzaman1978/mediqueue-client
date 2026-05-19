@@ -8,6 +8,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "i.ibb.co.com",
       },
+      
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
     ],
   },
 };
