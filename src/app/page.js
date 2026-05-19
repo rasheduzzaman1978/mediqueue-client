@@ -1,4 +1,5 @@
 import AvailableTutors from "@/components/home/AvailableTutors";
+import Categories from "@/components/home/Categories";
 import HeroSection from "@/components/home/HeroSection";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 
@@ -10,6 +11,7 @@ export default function HomePage() {
       <AvailableTutors />
       {/* Other sections like WhyChooseUs, Testimonials, etc. can be added here */}
       <WhyChooseUs />
+      <Categories />
      
     </div>
   );
