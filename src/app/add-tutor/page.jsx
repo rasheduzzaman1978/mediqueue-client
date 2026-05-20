@@ -1,12 +1,16 @@
+// app/add-tutor/page.jsx
+
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function AddTutorPage() {
   const router = useRouter();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] =
+    useState(false);
 
   const handleAddTutor = async (e) => {
     e.preventDefault();
@@ -19,16 +23,21 @@ export default function AddTutorPage() {
       tutorName: form.tutorName.value,
       photo: form.photo.value,
       subject: form.subject.value,
-      availableDays: form.availableDays.value,
-      availableTime: form.availableTime.value,
+      availableDays:
+        form.availableDays.value,
+      availableTime:
+        form.availableTime.value,
       hourlyFee: form.hourlyFee.value,
       totalSlot: form.totalSlot.value,
       sessionStartDate:
         form.sessionStartDate.value,
-      institution: form.institution.value,
-      experience: form.experience.value,
+      institution:
+        form.institution.value,
+      experience:
+        form.experience.value,
       location: form.location.value,
-      teachingMode: form.teachingMode.value,
+      teachingMode:
+        form.teachingMode.value,
 
       createdAt: new Date(),
     };
@@ -42,23 +51,31 @@ export default function AddTutorPage() {
             "content-type":
               "application/json",
           },
-          body: JSON.stringify(tutorData),
+          body: JSON.stringify(
+            tutorData
+          ),
         }
       );
 
       const data = await res.json();
 
       if (data.insertedId) {
-        alert("Tutor added successfully!");
+        toast.success(
+          "Tutor added successfully!"
+        );
 
         form.reset();
 
-        router.push("/tutors");
+        setTimeout(() => {
+          router.push("/tutors");
+        }, 1000);
       }
     } catch (error) {
       console.log(error);
 
-      alert("Failed to add tutor!");
+      toast.error(
+        "Failed to add tutor!"
+      );
     } finally {
       setLoading(false);
     }
@@ -71,13 +88,15 @@ export default function AddTutorPage() {
 
         {/* Heading */}
         <div className="text-center mb-10">
+
           <h1 className="text-4xl font-black">
             Add New Tutor
           </h1>
 
           <p className="text-gray-400 mt-4">
-            Create tutor profile and start
-            offering learning sessions.
+            Create tutor profile and
+            start offering learning
+            sessions.
           </p>
         </div>
 
@@ -330,7 +349,7 @@ export default function AddTutorPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-bold text-lg"
+            className="w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-bold text-lg disabled:opacity-50"
           >
             {loading
               ? "Adding Tutor..."
