@@ -1,5 +1,6 @@
 // app/tutors/page.jsx
 
+import Image from "next/image";
 import Link from "next/link";
 
 async function getTutors() {
@@ -31,9 +32,11 @@ export default async function TutorsPage() {
             className="bg-[#071226] border border-[#1e293b] rounded-3xl overflow-hidden shadow-lg hover:scale-[1.02] duration-300 flex flex-col"
           >
             {/* Tutor Image */}
-            <img
+            <Image
               src={tutor.photo}
               alt={tutor.tutorName}
+              width={500}
+              height={300}
               className="w-full h-64 object-cover"
             />
 
