@@ -1,6 +1,8 @@
 // app/tutors/[id]/page.jsx
 
 import Image from "next/image";
+import Link from "next/link";
+import { BsPencil, BsTrash2 } from "react-icons/bs";
 
 async function getTutor(id) {
   try {
@@ -48,11 +50,41 @@ export default async function TutorDetailsPage({
       {/* Main Container */}
       <div className="max-w-7xl mx-auto bg-[#071226]/90 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.4)]">
 
+        {/* Top Actions */}
+        <div className="flex items-center justify-between px-6 pt-6">
+
+          <Link
+            href="/tutors"
+            className="text-gray-400 hover:text-white transition text-sm"
+          >
+            ← Back to Tutors
+          </Link>
+
+          <div className="flex items-center gap-3">
+
+            {/* Edit */}
+            <button className="flex items-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 transition px-4 py-2 rounded-xl text-sm font-medium text-white">
+
+              <BsPencil size={16} />
+
+              Edit
+            </button>
+
+            {/* Delete */}
+            <button className="flex items-center gap-2 border border-red-500/20 text-red-400 bg-red-500/10 hover:bg-red-500/20 transition px-4 py-2 rounded-xl text-sm font-medium">
+
+              <BsTrash2 size={16} />
+
+              Delete
+            </button>
+          </div>
+        </div>
+
         {/* Main Grid */}
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-16 p-6">
 
           {/* Left Side Image */}
-          <div className="relative">
+          <div className="relative overflow-hidden rounded-xl">
 
             <Image
               src={tutor.photo}
@@ -85,7 +117,7 @@ export default async function TutorDetailsPage({
           </div>
 
           {/* Right Content */}
-          <div className="p-10 lg:p-14 flex flex-col justify-center">
+          <div className="p-4 lg:p-8 flex flex-col justify-center">
 
             {/* Name */}
             <h1 className="text-5xl lg:text-6xl font-black mb-5 leading-tight tracking-tight">
@@ -156,9 +188,7 @@ export default async function TutorDetailsPage({
                 </p>
 
                 <h3 className="font-semibold text-lg">
-                  {
-                    tutor.sessionStartDate
-                  }
+                  {tutor.sessionStartDate}
                 </h3>
               </div>
 
