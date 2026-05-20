@@ -224,10 +224,16 @@ export default async function TutorDetailsPage({
               </div>
 
               {/* Booking Button */}
-              <button className="bg-blue-600 hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all duration-300 px-10 py-4 rounded-2xl font-bold text-lg shadow-[0_10px_30px_rgba(37,99,235,0.4)]">
-
-                Confirm Booking
-              </button>
+              <Link
+                href={`/book-session/${tutor._id}`}
+                className="bg-blue-600 hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all duration-300 px-10 py-4 rounded-2xl font-bold text-lg shadow-[0_10px_30px_rgba(37,99,235,0.4)] text-center"
+              >
+                {
+                  tutor.totalSlot === 0
+                    ? "Fully Booked"
+                    : "Book Session"
+                }
+              </Link>
             </div>
           </div>
         </div>

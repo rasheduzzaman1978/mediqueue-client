@@ -1,8 +1,13 @@
 "use client";
 
 import Link from "next/link";
+
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import {
   FaBars,
@@ -26,39 +31,78 @@ import { authClient } from "@/lib/auth-client";
 // ====================== NAVBAR ======================
 
 export default function CustomNavbar() {
-  const pathname = usePathname();
+
+  const pathname =
+    usePathname();
 
   const [isMenuOpen, setIsMenuOpen] =
     useState(false);
+
+  // ================= HYDRATION FIX =================
+
+  const [mounted, setMounted] =
+    useState(false);
+
+  useEffect(() => {
+
+    setMounted(true);
+
+  }, []);
 
   // ================= SESSION =================
 
   const { data: session } =
     authClient.useSession();
 
-  const user = session?.user;
+  const user =
+    session?.user;
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+
+    return null;
+  }
 
   // ================= LINKS =================
 
   const publicLinks = [
-    { name: "Home", path: "/" },
-    { name: "Tutors", path: "/tutors" },
+
+    {
+      name: "Home",
+      path: "/",
+    },
+
+    {
+      name: "Tutors",
+      path: "/tutors",
+    },
   ];
 
   const privateLinks = [
-    { name: "Add Tutor", path: "/add-tutor" },
-    { name: "My Tutors", path: "/my-tutors" },
+
     {
-      name: "Booked Sessions",
-      path: "/my-booked-sessions",
+      name: "Add Tutor",
+      path: "/add-tutor",
     },
+
+    {
+      name: "My Tutors",
+      path: "/my-tutors",
+    },
+
+    {
+  name: "My Booked Sessions",
+  path: "/my-bookings",
+    }, 
   ];
 
   // ================= LOGOUT =================
 
-  const handleLogout = async () => {
-    await authClient.signOut();
-  };
+  const handleLogout =
+    async () => {
+
+      await authClient.signOut();
+    };
 
   return (
     <div className="w-full shadow bg-[#0B1120] text-white sticky top-0 z-50">
@@ -74,17 +118,25 @@ export default function CustomNavbar() {
           justify="start"
           className="flex-1"
         >
+
           <NavbarBrand>
+
             <Link
               href="/"
               prefetch={true}
               className="flex items-center"
             >
+
               <h1 className="text-2xl lg:text-3xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap">
+
                 TutorQueue
+
               </h1>
+
             </Link>
+
           </NavbarBrand>
+
         </NavbarContent>
 
         {/* ================= CENTER → MENU ================= */}
@@ -97,11 +149,15 @@ export default function CustomNavbar() {
           {/* ===== Public Links ===== */}
 
           {publicLinks.map((link) => {
+
             const isActive =
               pathname === link.path;
 
             return (
-              <NavbarItem key={link.path}>
+              <NavbarItem
+                key={link.path}
+              >
+
                 <Link
                   href={link.path}
                   prefetch={true}
@@ -111,12 +167,17 @@ export default function CustomNavbar() {
                       : "text-gray-300 hover:text-blue-400"
                   }`}
                 >
+
                   {link.name}
 
                   {isActive && (
+
                     <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500 rounded"></span>
+
                   )}
+
                 </Link>
+
               </NavbarItem>
             );
           })}
@@ -125,11 +186,15 @@ export default function CustomNavbar() {
 
           {user &&
             privateLinks.map((link) => {
+
               const isActive =
                 pathname === link.path;
 
               return (
-                <NavbarItem key={link.path}>
+                <NavbarItem
+                  key={link.path}
+                >
+
                   <Link
                     href={link.path}
                     prefetch={true}
@@ -139,12 +204,17 @@ export default function CustomNavbar() {
                         : "text-gray-300 hover:text-blue-400"
                     }`}
                   >
+
                     {link.name}
 
                     {isActive && (
+
                       <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500 rounded"></span>
+
                     )}
+
                   </Link>
+
                 </NavbarItem>
               );
             })}
@@ -157,18 +227,28 @@ export default function CustomNavbar() {
           {/* ===== Mobile Hamburger ===== */}
 
           <div className="lg:hidden mr-2">
+
             <button
               onClick={() =>
-                setIsMenuOpen(!isMenuOpen)
+                setIsMenuOpen(
+                  !isMenuOpen
+                )
               }
               className="text-2xl p-2 rounded-lg hover:bg-gray-800 transition"
             >
+
               {isMenuOpen ? (
+
                 <FaTimes />
+
               ) : (
+
                 <FaBars />
+
               )}
+
             </button>
+
           </div>
 
           {/* ================= DESKTOP AUTH ================= */}
@@ -178,31 +258,45 @@ export default function CustomNavbar() {
             {/* ===== Not Logged In ===== */}
 
             {!user ? (
+
               <ul className="flex items-center gap-3">
 
                 <li>
+
                   <Link
                     href="/login"
                     prefetch={true}
                   >
+
                     <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+
                       Login
+
                     </Button>
+
                   </Link>
+
                 </li>
 
                 <li>
+
                   <Link
                     href="/register"
                     prefetch={true}
                   >
+
                     <Button className="bg-gray-700 hover:bg-gray-800 text-white">
+
                       Sign Up
+
                     </Button>
+
                   </Link>
+
                 </li>
 
               </ul>
+
             ) : (
 
               /* ===== Logged In User ===== */
@@ -215,18 +309,24 @@ export default function CustomNavbar() {
                   size="sm"
                   className="cursor-pointer"
                 >
+
                   <Avatar.Image
                     alt={
-                      user?.name || "User"
+                      user?.name ||
+                      "User"
                     }
                     src={user?.image}
                     referrerPolicy="no-referrer"
                   />
 
                   <Avatar.Fallback>
-                    {user?.name?.charAt(0) ||
-                      "G"}
+
+                    {user?.name?.charAt(
+                      0
+                    ) || "G"}
+
                   </Avatar.Fallback>
+
                 </Avatar>
 
                 {/* Dropdown */}
@@ -236,13 +336,20 @@ export default function CustomNavbar() {
                   {/* User Info */}
 
                   <div className="px-4 py-3 border-b">
+
                     <p className="font-semibold">
-                      {user?.name || "User"}
+
+                      {user?.name ||
+                        "User"}
+
                     </p>
 
                     <p className="text-sm text-gray-500 truncate">
+
                       {user?.email}
+
                     </p>
+
                   </div>
 
                   {/* Profile */}
@@ -252,19 +359,26 @@ export default function CustomNavbar() {
                     prefetch={true}
                     className="block px-4 py-3 hover:bg-gray-100 transition"
                   >
+
                     My Profile
+
                   </Link>
 
                   {/* Logout */}
 
                   <button
-                    onClick={handleLogout}
+                    onClick={
+                      handleLogout
+                    }
                     className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-500 transition"
                   >
+
                     Logout
+
                   </button>
 
                 </div>
+
               </div>
             )}
           </div>
@@ -274,11 +388,13 @@ export default function CustomNavbar() {
       {/* ================= MOBILE MENU ================= */}
 
       {isMenuOpen && (
+
         <div className="lg:hidden bg-[#0B1120] text-white border-t border-gray-700 px-6 py-4 space-y-3">
 
           {/* ===== Public Links ===== */}
 
           {publicLinks.map((link) => {
+
             const isActive =
               pathname === link.path;
 
@@ -288,7 +404,9 @@ export default function CustomNavbar() {
                 href={link.path}
                 prefetch={true}
                 onClick={() =>
-                  setIsMenuOpen(false)
+                  setIsMenuOpen(
+                    false
+                  )
                 }
                 className={`block py-2 ${
                   isActive
@@ -296,7 +414,9 @@ export default function CustomNavbar() {
                     : "text-gray-300"
                 }`}
               >
+
                 {link.name}
+
               </Link>
             );
           })}
@@ -305,6 +425,7 @@ export default function CustomNavbar() {
 
           {user &&
             privateLinks.map((link) => {
+
               const isActive =
                 pathname === link.path;
 
@@ -314,7 +435,9 @@ export default function CustomNavbar() {
                   href={link.path}
                   prefetch={true}
                   onClick={() =>
-                    setIsMenuOpen(false)
+                    setIsMenuOpen(
+                      false
+                    )
                   }
                   className={`block py-2 ${
                     isActive
@@ -322,7 +445,9 @@ export default function CustomNavbar() {
                       : "text-gray-300"
                   }`}
                 >
+
                   {link.name}
+
                 </Link>
               );
             })}
@@ -332,56 +457,81 @@ export default function CustomNavbar() {
           {/* ================= MOBILE AUTH ================= */}
 
           {!user ? (
+
             <div className="space-y-3">
 
               <Link
                 href="/login"
                 prefetch={true}
                 onClick={() =>
-                  setIsMenuOpen(false)
+                  setIsMenuOpen(
+                    false
+                  )
                 }
               >
+
                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+
                   Login
+
                 </Button>
+
               </Link>
 
               <Link
                 href="/register"
                 prefetch={true}
                 onClick={() =>
-                  setIsMenuOpen(false)
+                  setIsMenuOpen(
+                    false
+                  )
                 }
               >
+
                 <Button className="w-full bg-gray-700 hover:bg-gray-800 text-white">
+
                   Register
+
                 </Button>
+
               </Link>
 
             </div>
+
           ) : (
+
             <div className="space-y-3">
 
               <Link
                 href="/profile"
                 prefetch={true}
                 onClick={() =>
-                  setIsMenuOpen(false)
+                  setIsMenuOpen(
+                    false
+                  )
                 }
                 className="block py-2 text-gray-300"
               >
+
                 My Profile
+
               </Link>
 
               <Button
                 className="w-full"
                 color="danger"
                 onClick={() => {
+
                   handleLogout();
-                  setIsMenuOpen(false);
+
+                  setIsMenuOpen(
+                    false
+                  );
                 }}
               >
+
                 Logout
+
               </Button>
 
             </div>
