@@ -1,8 +1,9 @@
 // app/tutors/[id]/page.jsx
 
+import { DeleteAlert } from "@/components/DeleteAlert";
 import Image from "next/image";
 import Link from "next/link";
-import { BsPencil, BsTrash2 } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 
 async function getTutor(id) {
   try {
@@ -74,12 +75,7 @@ export default async function TutorDetailsPage({
             </Link>
 
             {/* Delete */}
-            <button className="flex items-center gap-2 border border-red-500/20 text-red-400 bg-red-500/10 hover:bg-red-500/20 transition px-4 py-2 rounded-xl text-sm font-medium">
-
-              <BsTrash2 size={16} />
-
-              Delete
-            </button>
+            <DeleteAlert tutor={tutor} />
           </div>
         </div>
 
