@@ -60,7 +60,7 @@ export default function AvailableTutors() {
 
             <div
               key={tutor._id}
-              className="bg-[#0B1120] border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500 transition"
+               className="bg-[#071226] border border-[#1e293b] rounded-3xl overflow-hidden shadow-lg hover:scale-[1.02] duration-300 flex flex-col"
             >
 
               {/* Image */}
@@ -73,7 +73,7 @@ export default function AvailableTutors() {
               />
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-6 flex-1 flex flex-col">
 
                 <div className="flex justify-between items-center gap-3">
 
@@ -91,7 +91,6 @@ export default function AvailableTutors() {
                 </p>
 
                 <div className="flex justify-between mt-6 text-sm text-gray-300">
-
                   <span>
                     ${tutor.hourlyFee}/hr
                   </span>
@@ -101,13 +100,14 @@ export default function AvailableTutors() {
                   </span>
                 </div>
 
-                <Link
-                  href={`/tutors/${tutor._id}`}
-                  className="block text-center bg-blue-600 hover:bg-blue-700 mt-6 py-3 rounded-xl font-semibold transition"
-                >
-                  Book Session
-                </Link>
-              </div>
+                <div className="mt-auto pt-6">
+                  <Link href={`/tutors/${tutor._id}`}>
+                    <button className="w-full bg-blue-600 hover:bg-blue-700 transition-all py-4 rounded-2xl font-bold text-lg">
+                      Book Session
+                    </button>
+                  </Link>
+                </div>
+                </div>
             </div>
           ))}
         </div>
