@@ -16,7 +16,7 @@ const slides = [
     highlight: "Anytime, Anywhere",
     description:
       "Find experienced tutors for online and offline learning with flexible schedules.",
-    image: "https://i.ibb.co/7t8B7H2d/images.jpg",
+    image: "https://i.ibb.co.com/Z1mNvmmN/rashed.jpg",
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const slides = [
     highlight: "Boost Your Skills",
     description:
       "Connect with qualified tutors to improve academic performance and confidence.",
-    image: "https://i.ibb.co/RG5fTqDJ/images.webp",
+    image: "https://i.ibb.co.com/L3Fk78D/htaser.jpg",
   },
   {
     id: 3,
