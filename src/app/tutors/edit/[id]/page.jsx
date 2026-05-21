@@ -89,95 +89,64 @@ export default function TutorsEditPage({
   };
 
   // HANDLE UPDATE
-  const handleUpdate = async (e) => {
+ const handleUpdate = async (e) => {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
+  try {
 
-      const res = await fetch(
-        `http://localhost:5000/tutors/${id}`,
-        {
-          method: "PATCH",
+    const res = await fetch(
+      `http://127.0.0.1:5000/tutors/${id}`,
+      {
+        method: "PATCH",
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
 
-          body: JSON.stringify(
-            formData
-          ),
-        }
+        body: JSON.stringify(
+          formData
+        ),
+      }
+    );
+
+    const data =
+      await res.json();
+
+    console.log(data);
+
+    if (data.success) {
+
+      toast.success(
+        "Tutor Updated Successfully!"
       );
 
-      const data = await res.json();
+      setTimeout(() => {
 
-      if (data.modifiedCount > 0) {
-
-        toast.success(
-          "Tutor Updated Successfully!",
-          {
-            position: "top-right",
-
-            autoClose: 3000,
-
-            theme: "light",
-
-            style: {
-              borderRadius: "8px",
-              background: "#06b6d4",
-              color: "#fff",
-              fontWeight: "600",
-            },
-          }
+        router.push(
+          "/my-tutors"
         );
 
-        setTimeout(() => {
+      }, 1500);
 
-          router.push(
-            `/tutors/${id}`
-          );
-
-        }, 1500);
-      }
-
-    } catch (error) {
+    } else {
 
       toast.error(
-        "Something went wrong!",
-        {
-          position: "top-right",
-
-          autoClose: 3000,
-
-          theme: "light",
-
-          style: {
-            borderRadius: "8px",
-            background: "#ef4444",
-            color: "#fff",
-            fontWeight: "600",
-          },
-        }
+        data.message ||
+          "Update failed!"
       );
-
-      console.log(error);
     }
-  };
 
-  if (loading) {
+  } catch (error) {
 
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
+    console.log(error);
 
-        <div className="text-white text-2xl font-semibold animate-pulse">
-
-          Loading...
-        </div>
-      </div>
+    toast.error(
+      "Something went wrong!"
     );
   }
+};
 
   return (
 

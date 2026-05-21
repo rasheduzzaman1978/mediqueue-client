@@ -1,85 +1,140 @@
-// app/add-tutor/page.jsx
-
 "use client";
 
 import { useState } from "react";
+
 import { useRouter } from "next/navigation";
+
 import { toast } from "react-toastify";
 
+import { authClient } from "@/lib/auth-client";
+
 export default function AddTutorPage() {
+
   const router = useRouter();
+
+  const { data: session } =
+    authClient.useSession();
 
   const [loading, setLoading] =
     useState(false);
 
-  const handleAddTutor = async (e) => {
-    e.preventDefault();
+  // ================= ADD TUTOR =================
 
-    setLoading(true);
+  const handleAddTutor =
+    async (e) => {
 
-    const form = e.target;
+      e.preventDefault();
 
-    const tutorData = {
-      tutorName: form.tutorName.value,
-      photo: form.photo.value,
-      subject: form.subject.value,
-      availableDays:
-        form.availableDays.value,
-      availableTime:
-        form.availableTime.value,
-      hourlyFee: form.hourlyFee.value,
-      totalSlot: form.totalSlot.value,
-      sessionStartDate:
-        form.sessionStartDate.value,
-      institution:
-        form.institution.value,
-      experience:
-        form.experience.value,
-      location: form.location.value,
-      teachingMode:
-        form.teachingMode.value,
+      setLoading(true);
 
-      createdAt: new Date(),
-    };
+      const form = e.target;
 
-    try {
-      const res = await fetch(
-        "http://localhost:5000/tutors",
-        {
-          method: "POST",
-          headers: {
-            "content-type":
-              "application/json",
-          },
-          body: JSON.stringify(
-            tutorData
-          ),
-        }
-      );
+      const tutorData = {
 
-      const data = await res.json();
+        tutorName:
+          form.tutorName.value,
 
-      if (data.insertedId) {
-        toast.success(
-          "Tutor added successfully!"
+        photo:
+          form.photo.value,
+
+        subject:
+          form.subject.value,
+
+        availableDays:
+          form.availableDays.value,
+
+        availableTime:
+          form.availableTime.value,
+
+        hourlyFee:
+          form.hourlyFee.value,
+
+        totalSlot:
+          form.totalSlot.value,
+
+        sessionStartDate:
+          form.sessionStartDate.value,
+
+        institution:
+          form.institution.value,
+
+        experience:
+          form.experience.value,
+
+        location:
+          form.location.value,
+
+        teachingMode:
+          form.teachingMode.value,
+
+        creatorEmail:
+          session?.user?.email,
+
+        createdAt:
+          new Date(),
+      };
+
+      try {
+
+        const res = await fetch(
+          "http://127.0.0.1:5000/tutors",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+            body: JSON.stringify(
+              tutorData
+            ),
+          }
         );
 
-        form.reset();
+        const data =
+          await res.json();
 
-        setTimeout(() => {
-          router.push("/tutors");
-        }, 1000);
+        console.log(data);
+
+        if (
+          data.success ||
+          data.insertedId
+        ) {
+
+          toast.success(
+            "Tutor added successfully!"
+          );
+
+          form.reset();
+
+          setTimeout(() => {
+
+            router.push(
+              "/my-tutors"
+            );
+
+          }, 1500);
+
+        } else {
+
+          toast.error(
+            data.message ||
+              "Failed to add tutor!"
+          );
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+        toast.error(
+          "Server Error!"
+        );
+
+      } finally {
+
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error);
-
-      toast.error(
-        "Failed to add tutor!"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
   return (
     <div className="min-h-screen bg-[#020817] text-white py-16 px-6">
@@ -87,32 +142,43 @@ export default function AddTutorPage() {
       <div className="max-w-4xl mx-auto bg-[#0B1120] border border-white/10 rounded-3xl p-8 md:p-12">
 
         {/* Heading */}
+
         <div className="text-center mb-10">
 
           <h1 className="text-4xl font-black">
+
             Add New Tutor
+
           </h1>
 
           <p className="text-gray-400 mt-4">
-            Create tutor profile and
-            start offering learning
-            sessions.
+
+            Create tutor profile and start offering learning sessions.
+
           </p>
         </div>
 
         {/* Form */}
+
         <form
-          onSubmit={handleAddTutor}
+          onSubmit={
+            handleAddTutor
+          }
           className="space-y-8"
         >
 
           {/* Row 1 */}
+
           <div className="grid md:grid-cols-2 gap-6">
 
             {/* Tutor Name */}
+
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Tutor Name
+
               </label>
 
               <input
@@ -125,9 +191,13 @@ export default function AddTutorPage() {
             </div>
 
             {/* Photo */}
+
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Photo URL
+
               </label>
 
               <input
@@ -141,86 +211,122 @@ export default function AddTutorPage() {
           </div>
 
           {/* Row 2 */}
+
           <div className="grid md:grid-cols-2 gap-6">
 
             {/* Subject */}
+
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Subject / Category
+
               </label>
 
               <select
                 name="subject"
                 required
-                className="w-full text-black bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="w-full text-white bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
               >
+
                 <option value="">
+
                   Select Subject
+
                 </option>
 
                 <option value="Mathematics">
+
                   Mathematics
+
                 </option>
 
                 <option value="Physics">
+
                   Physics
+
                 </option>
 
                 <option value="Biology">
+
                   Biology
+
                 </option>
 
                 <option value="Programming">
+
                   Programming
+
                 </option>
 
                 <option value="English">
+
                   English
+
                 </option>
 
                 <option value="Chemistry">
+
                   Chemistry
+
                 </option>
               </select>
             </div>
 
             {/* Teaching Mode */}
+
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Teaching Mode
+
               </label>
 
               <select
                 name="teachingMode"
                 required
-                className="w-full text-black bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="w-full text-white bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
               >
+
                 <option value="">
+
                   Select Mode
+
                 </option>
 
                 <option value="Online">
+
                   Online
+
                 </option>
 
                 <option value="Offline">
+
                   Offline
+
                 </option>
 
                 <option value="Both">
+
                   Both
+
                 </option>
               </select>
             </div>
           </div>
 
           {/* Row 3 */}
+
           <div className="grid md:grid-cols-2 gap-6">
 
-            {/* Available Days */}
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Available Days
+
               </label>
 
               <input
@@ -232,10 +338,12 @@ export default function AddTutorPage() {
               />
             </div>
 
-            {/* Available Time */}
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Available Time Slot
+
               </label>
 
               <input
@@ -249,12 +357,15 @@ export default function AddTutorPage() {
           </div>
 
           {/* Row 4 */}
+
           <div className="grid md:grid-cols-2 gap-6">
 
-            {/* Hourly Fee */}
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Hourly Fee
+
               </label>
 
               <input
@@ -266,10 +377,12 @@ export default function AddTutorPage() {
               />
             </div>
 
-            {/* Total Slot */}
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Total Slot
+
               </label>
 
               <input
@@ -283,12 +396,15 @@ export default function AddTutorPage() {
           </div>
 
           {/* Row 5 */}
+
           <div className="grid md:grid-cols-2 gap-6">
 
-            {/* Session Date */}
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Session Start Date
+
               </label>
 
               <input
@@ -299,10 +415,12 @@ export default function AddTutorPage() {
               />
             </div>
 
-            {/* Location */}
             <div>
+
               <label className="block mb-2 font-medium">
+
                 Location
+
               </label>
 
               <input
@@ -316,9 +434,13 @@ export default function AddTutorPage() {
           </div>
 
           {/* Institution */}
+
           <div>
+
             <label className="block mb-2 font-medium">
+
               Institution
+
             </label>
 
             <input
@@ -331,9 +453,13 @@ export default function AddTutorPage() {
           </div>
 
           {/* Experience */}
+
           <div>
+
             <label className="block mb-2 font-medium">
+
               Experience
+
             </label>
 
             <textarea
@@ -346,14 +472,19 @@ export default function AddTutorPage() {
           </div>
 
           {/* Button */}
+
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-bold text-lg disabled:opacity-50"
           >
-            {loading
-              ? "Adding Tutor..."
-              : "Add Tutor"}
+
+            {
+              loading
+                ? "Adding Tutor..."
+                : "Add Tutor"
+            }
+
           </button>
         </form>
       </div>
