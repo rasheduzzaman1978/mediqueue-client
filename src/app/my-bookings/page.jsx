@@ -21,6 +21,8 @@ export default function MyBookingsPage() {
   const { data: session } =
     authClient.useSession();
 
+  // ================= FETCH BOOKINGS =================
+
   useEffect(() => {
 
     if (session?.user?.email) {
@@ -68,13 +70,10 @@ export default function MyBookingsPage() {
         if (data.success) {
 
           toast.success(
-            "Booking cancelled"
+            "Booking cancelled successfully"
           );
 
-          // Refresh UI
-          router.refresh();
-
-          // Update local state
+          // UPDATE UI
           setBookings(
             bookings.map(
               (booking) => {
@@ -95,12 +94,14 @@ export default function MyBookingsPage() {
             )
           );
 
+          router.refresh();
+
         } else {
 
           toast.error(
             data.message ||
-            "Failed to cancel booking"
-            );
+              "Failed to cancel booking"
+          );
         }
 
       } catch (error) {
@@ -118,7 +119,7 @@ export default function MyBookingsPage() {
   if (loading) {
 
     return (
-      <div className="min-h-screen bg-[#020817] text-white flex items-center justify-center text-2xl font-bold">
+      <div className="min-h-screen bg-[#020817] text-white flex items-center justify-center text-2xl md:text-3xl font-black">
 
         Loading...
 
@@ -129,140 +130,328 @@ export default function MyBookingsPage() {
   // ================= UI =================
 
   return (
-    <div className="min-h-screen bg-[#020817] text-white p-10">
 
-      <h1 className="text-5xl font-black mb-10">
+    <div className="min-h-screen bg-[#020817] text-white px-4 md:px-10 py-10 md:py-12">
 
-        My Booked Sessions
+      {/* HEADING */}
 
-      </h1>
+      <div className="mb-8 md:mb-10">
+
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 leading-tight">
+
+          My Booked Sessions
+
+        </h1>
+
+        <p className="text-sm md:text-base text-gray-400">
+
+          View and manage all your booked tutor sessions.
+
+        </p>
+      </div>
+
+      {/* EMPTY STATE */}
 
       {bookings.length === 0 ? (
 
-        <div className="bg-[#071226] border border-white/10 rounded-3xl p-10 text-center">
+        <div className="bg-[#071226] border border-white/10 rounded-3xl p-10 md:p-16 text-center">
 
-          <h2 className="text-2xl font-bold">
+          <div className="text-5xl md:text-7xl mb-6">
 
-            You haven’t booked any sessions yet.
+            📚
+
+          </div>
+
+          <h2 className="text-2xl md:text-3xl font-black mb-4">
+
+            No Bookings Found
 
           </h2>
 
+          <p className="text-sm md:text-base text-gray-400">
+
+            You haven’t booked any tutor sessions yet.
+
+          </p>
         </div>
 
       ) : (
 
-        <div className="overflow-x-auto bg-[#071226] border border-white/10 rounded-3xl">
+        <>
+          {/* ================= DESKTOP TABLE ================= */}
 
-          <table className="w-full">
+          <div className="hidden lg:block overflow-x-auto rounded-3xl">
 
-            <thead>
+            <table className="w-full border-separate border-spacing-0">
 
-              <tr className="border-b border-white/10">
+              {/* TABLE HEAD */}
 
-                <th className="p-5 text-left">
-                  Tutor
-                </th>
+              <thead>
 
-                <th className="p-5 text-left">
-                  Student
-                </th>
+                <tr>
 
-                <th className="p-5 text-left">
-                  Email
-                </th>
+                  <th className="p-5 text-center border border-white/10 bg-[#071226] font-bold">
 
-                <th className="p-5 text-left">
-                  Status
-                </th>
+                    Tutor Name
 
-                <th className="p-5 text-left">
-                  Action
-                </th>
+                  </th>
 
-              </tr>
+                  <th className="p-5 text-center border border-white/10 bg-[#071226] font-bold">
 
-            </thead>
+                    Student Name
 
-            <tbody>
+                  </th>
 
-              {bookings.map(
-                (booking) => (
+                  <th className="p-5 text-center border border-white/10 bg-[#071226] font-bold">
 
-                  <tr
-                    key={booking._id}
-                    className="border-b border-white/5"
-                  >
+                    Email
 
-                    <td className="p-5">
-                      {
-                        booking.tutorName
-                      }
-                    </td>
+                  </th>
 
-                    <td className="p-5">
-                      {
-                        booking.studentName
-                      }
-                    </td>
+                  <th className="p-5 text-center border border-white/10 bg-[#071226] font-bold">
 
-                    <td className="p-5">
-                      {
-                        booking.studentEmail
-                      }
-                    </td>
+                    Status
 
-                    <td className="p-5">
+                  </th>
 
-                      <span className={`px-3 py-1 rounded-full text-sm ${
+                  <th className="p-5 text-center border border-white/10 bg-[#071226] font-bold">
+
+                    Action
+
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              {/* TABLE BODY */}
+
+              <tbody>
+
+                {bookings.map(
+                  (booking) => (
+
+                    <tr
+                      key={booking._id}
+                      className="hover:bg-white/[0.02] transition text-center"
+                    >
+
+                      {/* TUTOR NAME */}
+
+                      <td className="p-5 border border-white/10 bg-[#071226] font-medium">
+
+                        {booking.tutorName}
+
+                      </td>
+
+                      {/* STUDENT NAME */}
+
+                      <td className="p-5 border border-white/10 bg-[#071226]">
+
+                        {booking.studentName}
+
+                      </td>
+
+                      {/* EMAIL */}
+
+                      <td className="p-5 border border-white/10 bg-[#071226] text-gray-300">
+
+                        {booking.studentEmail}
+
+                      </td>
+
+                      {/* STATUS */}
+
+                      <td className="p-5 border border-white/10 bg-[#071226]">
+
+                        <span
+                          className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                            booking.bookingStatus ===
+                            "cancelled"
+                              ? "bg-red-500/20 text-red-400"
+                              : "bg-green-500/20 text-green-400"
+                          }`}
+                        >
+
+                          {
+                            booking.bookingStatus
+                          }
+
+                        </span>
+
+                      </td>
+
+                      {/* ACTION */}
+
+                      <td className="p-5 border border-white/10 bg-[#071226]">
+
+                        <button
+                          disabled={
+                            booking.bookingStatus ===
+                            "cancelled"
+                          }
+                          onClick={() =>
+                            handleCancel(
+                              booking._id
+                            )
+                          }
+                          className={`px-5 py-2 rounded-xl font-semibold transition ${
+                            booking.bookingStatus ===
+                            "cancelled"
+                              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                              : "bg-red-600 hover:bg-red-700"
+                          }`}
+                        >
+
+                          {
+                            booking.bookingStatus ===
+                            "cancelled"
+                              ? "Cancelled"
+                              : "Cancel"
+                          }
+
+                        </button>
+
+                      </td>
+
+                    </tr>
+                  )
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          {/* ================= MOBILE + TABLET CARD VIEW ================= */}
+
+          <div className="grid lg:hidden gap-5">
+
+            {bookings.map(
+              (booking) => (
+
+                <div
+                  key={booking._id}
+                  className="bg-[#071226] border border-white/10 rounded-3xl p-5 space-y-4"
+                >
+
+                  {/* Tutor */}
+
+                  <div>
+
+                    <p className="text-gray-400 text-sm mb-1">
+
+                      Tutor Name
+
+                    </p>
+
+                    <h2 className="text-xl font-bold">
+
+                      {booking.tutorName}
+
+                    </h2>
+
+                  </div>
+
+                  {/* Student */}
+
+                  <div>
+
+                    <p className="text-gray-400 text-sm mb-1">
+
+                      Student Name
+
+                    </p>
+
+                    <h2 className="font-medium">
+
+                      {booking.studentName}
+
+                    </h2>
+
+                  </div>
+
+                  {/* Email */}
+
+                  <div>
+
+                    <p className="text-gray-400 text-sm mb-1">
+
+                      Email
+
+                    </p>
+
+                    <p className="break-all">
+
+                      {booking.studentEmail}
+
+                    </p>
+
+                  </div>
+
+                  {/* Status */}
+
+                  <div>
+
+                    <p className="text-gray-400 text-sm mb-2">
+
+                      Status
+
+                    </p>
+
+                    <span
+                      className={`inline-block px-4 py-2 rounded-full text-sm font-semibold ${
                         booking.bookingStatus ===
                         "cancelled"
                           ? "bg-red-500/20 text-red-400"
                           : "bg-green-500/20 text-green-400"
-                      }`}>
+                      }`}
+                    >
 
-                        {
-                          booking.bookingStatus
-                        }
+                      {
+                        booking.bookingStatus
+                      }
 
-                      </span>
+                    </span>
 
-                    </td>
+                  </div>
 
-                    <td className="p-5">
+                  {/* Action */}
 
-                      <button
-                        disabled={
-                          booking.bookingStatus ===
-                          "cancelled"
-                        }
-                        onClick={() =>
-                          handleCancel(
-                            booking._id
-                          )
-                        }
-                        className="bg-red-600 px-4 py-2 rounded-lg disabled:opacity-50"
-                      >
+                  <button
+                    disabled={
+                      booking.bookingStatus ===
+                      "cancelled"
+                    }
+                    onClick={() =>
+                      handleCancel(
+                        booking._id
+                      )
+                    }
+                    className={`w-full py-3 rounded-2xl font-semibold transition ${
+                      booking.bookingStatus ===
+                      "cancelled"
+                        ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                        : "bg-red-600 hover:bg-red-700"
+                    }`}
+                  >
 
-                        {
-                          booking.bookingStatus ===
-                          "cancelled"
-                            ? "Cancelled"
-                            : "Cancel"
-                        }
+                    {
+                      booking.bookingStatus ===
+                      "cancelled"
+                        ? "Cancelled"
+                        : "Cancel Booking"
+                    }
 
-                      </button>
+                  </button>
 
-                    </td>
+                </div>
+              )
+            )}
 
-                  </tr>
-                )
-              )}
-
-            </tbody>
-
-          </table>
-
-        </div>
+          </div>
+        </>
       )}
     </div>
   );
