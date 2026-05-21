@@ -227,7 +227,7 @@ export default function AddTutorPage() {
               <select
                 name="subject"
                 required
-                className="w-full text-white bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="w-full text-black bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
               >
 
                 <option value="">
@@ -287,7 +287,7 @@ export default function AddTutorPage() {
               <select
                 name="teachingMode"
                 required
-                className="w-full text-white bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="w-full text-black bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
               >
 
                 <option value="">

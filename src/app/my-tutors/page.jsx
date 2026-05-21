@@ -349,7 +349,7 @@ export default function MyTutorsPage() {
 
         <div>
 
-          <h1 className="text-5xl font-black mb-2">
+          <h1 className="text-3xl md:text-5xl font-black mb-2">
 
             My Tutors
 
