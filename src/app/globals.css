@@ -25,28 +25,19 @@ body {
   color: #000000;
 
   transition:
-    background-color 0.3s ease,
+    background 0.3s ease,
     color 0.3s ease;
 }
 
 /* ================= DARK MODE ================= */
 
 .dark body {
-
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(59,130,246,0.12),
-      transparent 30%
-    ),
-    linear-gradient(
-      to bottom,
-      #020817,
-      #071226
-    );
+  background: #020817;
 
   color: #ffffff;
 }
+
+/* ================= FIX ================= */
 
 body {
   background-attachment: fixed;
