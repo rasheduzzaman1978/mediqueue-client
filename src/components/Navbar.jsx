@@ -318,7 +318,7 @@ export default function CustomNavbar() {
                 <li>
 
                   <Link
-                    href="/register"
+                    href="/signup"
                     prefetch={true}
                   >
 
@@ -499,13 +499,13 @@ export default function CustomNavbar() {
               </Link>
 
               <Link
-                href="/register"
+                href="/signup"
                 prefetch={true}
               >
 
                 <Button className="w-full bg-gray-700 hover:bg-gray-800 text-white">
 
-                  Register
+                  Sign Up
 
                 </Button>
 

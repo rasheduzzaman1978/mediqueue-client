@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+** Project Name : MediQueue – Tutor Booking System
 
-## Getting Started
+Live Website
 
-First, run the development server:
+## GitHub Repositories
+Client Repository: [Client Repo Link Here]
+Server Repository: [Server Repo Link Here]
+ 
+** Project Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    MediQueue is a modern Tutor Booking Web Application where students can easily find tutors, view tutor details, and book learning sessions online based on subject and availability.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    The platform helps students avoid manual scheduling problems by offering a smooth digital booking system with automated slot management and booking status tracking.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+** Users can:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    Register/Login securely
+    Browse tutors
+    Book sessions
+    Manage tutors
+    Manage booked sessions
+    Search and filter tutors easily
 
-## Learn More
+✨ Key Features
+    
+  * JWT Authentication with Email/Password & Google Login
+  * Tutor Booking System with Slot Availability Management
+  * Search Tutors by Name using MongoDB Regex Search
+  * Filter Tutors by Session Date Range
+🌙 Dark & Light Theme Toggle
+* Fully Responsive for Mobile, Tablet & Desktop
+* Real-time CRUD Operations with Toast Notifications
+* Dynamic Website Title for Every Route
+* Private Route Protection using JWT
+* Modern UI with Smooth Animations
+* Custom 404 & Error Pages
+* Loading Spinner for Data Fetching States
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Frontend
+* React.js
+* React Router DOM
+* Tailwind CSS
+* DaisyUI / Flowbite / Shadcn UI
+* Firebase Authentication
+* Axios
+* React Toastify
+* Framer Motion
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Backend
+* Node.js
+* Express.js
+* MongoDB
+* JWT (jsonwebtoken)
+* CORS
+* dotenv
 
-## Deploy on Vercel
+## Authentication Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* User Registration
+* User Login
+* Google Social Login
+* JWT Token Generation
+* Protected Private Routes
+* Persistent Login after Reload
+* Password Validation:
+* Minimum 6 characters
+* At least one uppercase letter
+* At least one lowercase letter
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tutor Features
+
+* Public Features
+* View all tutors
+* Tutor details page
+* Search tutors by name
+* Filter tutors by session date
+* Private Features
+* Add Tutor
+* Update Tutor
+* Delete Tutor
+* Book Session
+* View My Tutors
+* View My Booked Sessions
+* Cancel Booking
+
+## Booking System Logic
+* Booking automatically decreases available slots
+* Booking blocked if:
+* No slots available
+* Session date has not started yet
+* Booking status auto-generated
+* Cancel booking updates status dynamically
+
+## UI/UX Features
+* Clean and modern design
+* Consistent typography and spacing
+* Equal card layouts
+* Responsive navigation
+* Animated sections
+* Interactive buttons and hover effects
+
+## Search & Filter Functionality
+
+* Search
+* Case-insensitive tutor name search
+* Implemented using MongoDB $regex
+
+## Filter
+* Tutors filtered by session start date
+
+## Implemented using:
+* $gte
+* $lte
+
+## Responsiveness
+
+The website is fully optimized for:
+
+* Mobile Devices
+* Tablets
+* Laptops
+* Large Desktop Screens
+
+⭐ Future Improvements
+* Tutor Reviews & Ratings
+* Payment Gateway Integration
+* Real-time Chat System
+* Video Meeting Integration
+* Email Notifications
+* Admin Dashboard
+
+⭐ Developed by : Md. Rasheduzzaman
+Email: rashedzaman@gmail.com
+
+## 🔗 Links
+
+- Live Site: 
+- Client Github Repository: 
+- Server Github Repository: 
+

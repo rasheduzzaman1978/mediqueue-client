@@ -1,4 +1,3 @@
-// pages/HomePage.jsx
 
 import AvailableTutors from "@/components/home/AvailableTutors";
 
@@ -9,6 +8,10 @@ import HeroSection from "@/components/home/HeroSection";
 import Testimonials from "@/components/home/Testimonials";
 
 import WhyChooseUs from "@/components/home/WhyChooseUs";
+
+export const metadata = {
+  title: "Home | Mediqueue",
+};
 
 const HomePage = () => {
 

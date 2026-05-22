@@ -21,9 +21,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "TutorQueue",
-  description:
-    "Tutor Booking Platform",
+  title: {
+    default: "Tutors | Mediqueue",
+    template: "%s | Mediqueue",
+  },
+  description: "Tutor Booking Platform",
 };
 
 export default function RootLayout({

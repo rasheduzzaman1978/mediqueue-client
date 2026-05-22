@@ -1,4 +1,3 @@
-// app/tutors/[id]/page.jsx
 
 import { DeleteAlert } from "@/components/DeleteAlert";
 
@@ -31,6 +30,22 @@ async function getTutor(id) {
 
     return null;
   }
+}
+
+export async function generateMetadata({
+  params,
+}) {
+
+  const { id } = await params;
+
+  const tutor =
+    await getTutor(id);
+
+  return {
+    title:
+      tutor?.tutorName ||
+      "Tutor Details",
+  };
 }
 
 export default async function TutorDetailsPage({
