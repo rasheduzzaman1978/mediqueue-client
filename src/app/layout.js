@@ -1,4 +1,5 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
+
 import "./globals.css";
 
 import MainNavbar from "@/components/Navbar";
@@ -10,14 +11,14 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// POPPINS FONT
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: [
+    "100", "200", "300", "400", "500", "600", "700", "800", "900",
+  ],
+  variable: "--font-poppins",
 });
 
 export const metadata = {
@@ -25,6 +26,7 @@ export const metadata = {
     default: "Tutors | Mediqueue",
     template: "%s | Mediqueue",
   },
+
   description: "Tutor Booking Platform",
 };
 
@@ -37,10 +39,10 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} h-full antialiased`}
     >
 
-      <body className="min-h-screen flex flex-col bg-white text-black dark:bg-[#020817] dark:text-white transition-colors duration-300">
+      <body className="min-h-screen flex flex-col bg-white text-black dark:bg-[#020817] dark:text-white transition-colors duration-300 font-[family-name:var(--font-poppins)]">
 
         <ThemeProvider>
 
