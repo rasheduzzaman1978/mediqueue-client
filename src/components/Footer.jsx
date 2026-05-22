@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import {
@@ -9,16 +11,18 @@ import {
 
 export default function Footer() {
 
+  const categories = [
+    "Mathematics",
+    "Physics",
+    "Biology",
+    "Programming",
+    "English",
+    "Chemistry",
+  ];
+
   return (
 
-    <footer className="
-      bg-white dark:bg-[#071226]
-      text-black dark:text-white
-      border-t border-gray-200 dark:border-white/10
-      py-12
-      mt-auto
-      transition-colors duration-300
-    ">
+    <footer className="bg-white dark:bg-[#071226] text-black dark:text-white border-t border-gray-200 dark:border-white/10 py-12 mt-auto transition-colors duration-300">
 
       <div className="max-w-7xl mx-auto px-6">
 
@@ -26,7 +30,7 @@ export default function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {/* ================= LOGO ================= */}
+          {/* LOGO */}
 
           <div>
 
@@ -51,7 +55,7 @@ export default function Footer() {
 
           </div>
 
-          {/* ================= SERVICES ================= */}
+          {/* SERVICES */}
 
           <div>
 
@@ -66,7 +70,7 @@ export default function Footer() {
               <li>
 
                 <Link
-                  href="/tutors"
+                  href="/find-tutors"
                   className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                 >
 
@@ -105,7 +109,7 @@ export default function Footer() {
               <li>
 
                 <Link
-                  href="/tutors"
+                  href="/find-tutors"
                   className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                 >
 
@@ -119,7 +123,7 @@ export default function Footer() {
 
           </div>
 
-          {/* ================= CATEGORIES ================= */}
+          {/* CATEGORIES */}
 
           <div>
 
@@ -131,76 +135,28 @@ export default function Footer() {
 
             <ul className="space-y-3 text-gray-600 dark:text-gray-400">
 
-              <li>
+              {categories.map((category) => (
 
-                <Link
-                  href="/tutors?category=mathematics"
-                  className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
-                >
+                <li key={category}>
 
-                  Mathematics
+                  <Link
+                    href={`/find-tutors?category=${category}`}
+                    className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
+                  >
 
-                </Link>
+                    {category}
 
-              </li>
+                  </Link>
 
-              <li>
+                </li>
 
-                <Link
-                  href="/tutors?category=physics"
-                  className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-
-                  Physics
-
-                </Link>
-
-              </li>
-
-              <li>
-
-                <Link
-                  href="/tutors?category=biology"
-                  className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-
-                  Biology
-
-                </Link>
-
-              </li>
-
-              <li>
-
-                <Link
-                  href="/tutors?category=programming"
-                  className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-
-                  Programming
-
-                </Link>
-
-              </li>
-
-              <li>
-
-                <Link
-                  href="/tutors?category=english"
-                  className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
-                >
-
-                  English
-
-                </Link>
-
-              </li>
+              ))}
 
             </ul>
 
           </div>
 
-          {/* ================= SOCIAL ================= */}
+          {/* SOCIAL */}
 
           <div>
 
@@ -218,80 +174,40 @@ export default function Footer() {
 
             <div className="flex gap-4">
 
-              {/* FACEBOOK */}
-
               <Link
                 href="https://facebook.com"
                 target="_blank"
-                className="
-                  bg-gray-200 dark:bg-white/10
-                  hover:bg-blue-600
-                  hover:text-white
-                  transition-all duration-300
-                  p-3
-                  rounded-full
-                  text-lg
-                "
+                className="bg-gray-200 dark:bg-white/10 hover:bg-blue-600 hover:text-white transition-all duration-300 p-3 rounded-full text-lg"
               >
 
                 <FaFacebookF />
 
               </Link>
 
-              {/* INSTAGRAM */}
-
               <Link
                 href="https://instagram.com"
                 target="_blank"
-                className="
-                  bg-gray-200 dark:bg-white/10
-                  hover:bg-pink-600
-                  hover:text-white
-                  transition-all duration-300
-                  p-3
-                  rounded-full
-                  text-lg
-                "
+                className="bg-gray-200 dark:bg-white/10 hover:bg-pink-600 hover:text-white transition-all duration-300 p-3 rounded-full text-lg"
               >
 
                 <FaInstagram />
 
               </Link>
 
-              {/* LINKEDIN */}
-
               <Link
                 href="https://linkedin.com"
                 target="_blank"
-                className="
-                  bg-gray-200 dark:bg-white/10
-                  hover:bg-blue-500
-                  hover:text-white
-                  transition-all duration-300
-                  p-3
-                  rounded-full
-                  text-lg
-                "
+                className="bg-gray-200 dark:bg-white/10 hover:bg-blue-500 hover:text-white transition-all duration-300 p-3 rounded-full text-lg"
               >
 
                 <FaLinkedinIn />
 
               </Link>
 
-              {/* X */}
-
               <Link
                 href="https://x.com"
                 target="_blank"
-                className="
-                  bg-gray-200 dark:bg-white/10
-                  hover:bg-black
-                  hover:text-white
-                  transition-all duration-300
-                  p-3
-                  rounded-full
-                  text-lg
-                "
+                className="bg-gray-200 dark:bg-white/10 hover:bg-black hover:text-white transition-all duration-300 p-3 rounded-full text-lg"
               >
 
                 <FaXTwitter />
@@ -304,16 +220,9 @@ export default function Footer() {
 
         </div>
 
-        {/* ================= BOTTOM ================= */}
+        {/* BOTTOM */}
 
-        <div className="
-          border-t border-gray-200 dark:border-white/10
-          mt-12
-          pt-6
-          text-center
-          text-gray-600 dark:text-gray-400
-          text-sm
-        ">
+        <div className="border-t border-gray-200 dark:border-white/10 mt-12 pt-6 text-center text-gray-600 dark:text-gray-400 text-sm">
 
           © {new Date().getFullYear()} TutorQueue.
           All rights reserved.
