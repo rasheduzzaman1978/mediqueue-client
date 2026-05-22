@@ -1,6 +1,53 @@
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
+
+/* ================= THEME ================= */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ================= GLOBAL ================= */
+
+html,
+body {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+/* ================= LIGHT MODE ================= */
 
 body {
-  background: #f5f5f5;
+  background: linear-gradient(
+    to bottom,
+    #f8fafc,
+    #eef2ff
+  );
+
+  color: #000000;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ================= DARK MODE ================= */
+
+.dark body {
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(59,130,246,0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      to bottom,
+      #020817,
+      #071226
+    );
+
+  color: #ffffff;
+}
+
+body {
+  background-attachment: fixed;
 }

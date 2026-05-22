@@ -208,10 +208,12 @@ export default function MyTutorsPage() {
           `http://127.0.0.1:5000/tutors/${selectedTutor._id}`,
           {
             method: "PUT",
+
             headers: {
               "Content-Type":
                 "application/json",
             },
+
             body: JSON.stringify(
               updateForm
             ),
@@ -332,7 +334,8 @@ export default function MyTutorsPage() {
   if (loading) {
 
     return (
-      <div className="min-h-screen bg-[#020817] flex items-center justify-center text-white text-3xl font-black">
+
+      <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-b dark:from-[#020817] dark:to-[#071226] flex items-center justify-center text-black dark:text-white text-3xl font-black transition-colors duration-300">
 
         Loading...
 
@@ -341,7 +344,8 @@ export default function MyTutorsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#020817] text-white px-4 md:px-10 py-10">
+
+    <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-b dark:from-[#020817] dark:to-[#071226] text-black dark:text-white px-4 md:px-10 py-10 transition-colors duration-300">
 
       {/* ================= HEADER ================= */}
 
@@ -355,7 +359,7 @@ export default function MyTutorsPage() {
 
           </h1>
 
-          <p className="text-gray-400">
+          <p className="text-gray-600 dark:text-gray-400">
 
             Manage all your tutors professionally.
 
@@ -365,12 +369,22 @@ export default function MyTutorsPage() {
 
         <Link
           href="/add-tutor"
-          className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 hover:scale-105 px-6 py-4 rounded-2xl font-bold"
+          className="
+            bg-blue-600 hover:bg-blue-700
+            dark:bg-blue-500 dark:hover:bg-blue-600
+            transition-all duration-300
+            hover:scale-105
+            px-6 py-4
+            rounded-2xl
+            font-bold
+            text-white
+          "
         >
 
           + Add Tutor
 
         </Link>
+
       </div>
 
       {/* ================= STATS ================= */}
@@ -379,21 +393,29 @@ export default function MyTutorsPage() {
 
         {/* Tutors */}
 
-        <div className="bg-[#071226] border border-white/10 rounded-3xl p-6">
+        <div className="
+          bg-white dark:bg-white/5
+          border border-gray-200 dark:border-white/10
+          backdrop-blur-md
+          rounded-3xl
+          p-6
+          shadow-lg
+        ">
 
           <div className="flex items-center justify-between mb-5">
 
-            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl text-blue-400">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center text-2xl text-blue-500 dark:text-blue-400">
 
               <HiOutlineUsers />
 
             </div>
 
-            <span className="text-gray-400 text-sm">
+            <span className="text-gray-500 dark:text-gray-400 text-sm">
 
               Total Tutors
 
             </span>
+
           </div>
 
           <h2 className="text-4xl font-black">
@@ -401,25 +423,34 @@ export default function MyTutorsPage() {
             {totalTutors}
 
           </h2>
+
         </div>
 
         {/* Slots */}
 
-        <div className="bg-[#071226] border border-white/10 rounded-3xl p-6">
+        <div className="
+          bg-white dark:bg-white/5
+          border border-gray-200 dark:border-white/10
+          backdrop-blur-md
+          rounded-3xl
+          p-6
+          shadow-lg
+        ">
 
           <div className="flex items-center justify-between mb-5">
 
-            <div className="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center text-2xl text-green-400">
+            <div className="w-14 h-14 rounded-2xl bg-green-500/20 flex items-center justify-center text-2xl text-green-500 dark:text-green-400">
 
               🎯
 
             </div>
 
-            <span className="text-gray-400 text-sm">
+            <span className="text-gray-500 dark:text-gray-400 text-sm">
 
               Available Slots
 
             </span>
+
           </div>
 
           <h2 className="text-4xl font-black">
@@ -427,25 +458,34 @@ export default function MyTutorsPage() {
             {totalSlots}
 
           </h2>
+
         </div>
 
         {/* Subjects */}
 
-        <div className="bg-[#071226] border border-white/10 rounded-3xl p-6">
+        <div className="
+          bg-white dark:bg-white/5
+          border border-gray-200 dark:border-white/10
+          backdrop-blur-md
+          rounded-3xl
+          p-6
+          shadow-lg
+        ">
 
           <div className="flex items-center justify-between mb-5">
 
-            <div className="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-2xl text-purple-400">
+            <div className="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-2xl text-purple-500 dark:text-purple-400">
 
               <MdOutlineSubject />
 
             </div>
 
-            <span className="text-gray-400 text-sm">
+            <span className="text-gray-500 dark:text-gray-400 text-sm">
 
               Subjects
 
             </span>
+
           </div>
 
           <h2 className="text-4xl font-black">
@@ -453,14 +493,16 @@ export default function MyTutorsPage() {
             {totalSubjects}
 
           </h2>
+
         </div>
+
       </div>
 
       {/* ================= SEARCH ================= */}
 
       <div className="relative mb-10">
 
-        <BsSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
+        <BsSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 text-lg" />
 
         <input
           type="text"
@@ -471,351 +513,20 @@ export default function MyTutorsPage() {
               e.target.value
             )
           }
-          className="w-full bg-[#071226] border border-white/10 rounded-2xl pl-14 pr-5 py-4 outline-none focus:border-blue-500 transition"
+          className="
+            w-full
+            bg-white dark:bg-[#071226]
+            border border-gray-300 dark:border-white/10
+            rounded-2xl
+            pl-14 pr-5 py-4
+            outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            transition-all duration-300
+          "
         />
+
       </div>
-
-      {/* ================= EMPTY STATE ================= */}
-
-      {filteredTutors.length === 0 ? (
-
-        <div className="bg-[#071226] border border-white/10 rounded-[32px] p-16 text-center">
-
-          <div className="text-7xl mb-6">
-
-            🚀
-
-          </div>
-
-          <h2 className="text-3xl font-black mb-4">
-
-            No Tutors Found
-
-          </h2>
-
-          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-
-            Start by adding your first tutor and manage everything professionally.
-
-          </p>
-
-          <Link
-            href="/add-tutor"
-            className="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-bold inline-block"
-          >
-
-            Add Tutor
-
-          </Link>
-        </div>
-
-      ) : (
-
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-
-          {filteredTutors.map(
-            (tutor) => (
-
-              <div
-                key={tutor._id}
-                className="group bg-[#071226] border border-white/10 hover:border-blue-500/30 rounded-[32px] overflow-hidden transition-all duration-300"
-              >
-
-                {/* IMAGE */}
-
-                <div className="relative h-[280px] overflow-hidden">
-
-                  <Image
-                    src={tutor.photo}
-                    alt={
-                      tutor.tutorName
-                    }
-                    fill
-                    className="object-cover group-hover:scale-105 transition duration-500"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-
-                  <div className="absolute top-5 left-5 bg-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
-
-                    {tutor.subject}
-
-                  </div>
-                </div>
-
-                {/* CONTENT */}
-
-                <div className="p-6">
-
-                  <h2 className="text-2xl font-black mb-2">
-
-                    {tutor.tutorName}
-
-                  </h2>
-
-                  <p className="text-gray-400 mb-6 line-clamp-1">
-
-                    {tutor.institution}
-
-                  </p>
-
-                  <div className="flex items-center justify-between mb-6">
-
-                    <div>
-
-                      <p className="text-gray-400 text-sm">
-
-                        Hourly Fee
-
-                      </p>
-
-                      <h3 className="text-2xl font-black text-green-400">
-
-                        $
-                        {tutor.hourlyFee}
-
-                      </h3>
-                    </div>
-
-                    <div className="text-right">
-
-                      <p className="text-gray-400 text-sm">
-
-                        Available Slots
-
-                      </p>
-
-                      <h3 className="text-xl font-black text-blue-400">
-
-                        {tutor.totalSlot}
-
-                      </h3>
-                    </div>
-                  </div>
-
-                  {/* ACTIONS */}
-
-                  <div className="flex gap-3">
-
-                    {/* UPDATE */}
-
-                    <button
-                      onClick={() =>
-                        openUpdateModal(
-                          tutor
-                        )
-                      }
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 transition py-3 rounded-2xl font-semibold flex items-center justify-center gap-2"
-                    >
-
-                      <BsPencilSquare />
-
-                      Update
-
-                    </button>
-
-                    {/* DELETE */}
-
-                    <button
-                      onClick={() =>
-                        openDeleteModal(
-                          tutor._id
-                        )
-                      }
-                      className="flex-1 bg-red-600 hover:bg-red-700 transition py-3 rounded-2xl font-semibold flex items-center justify-center gap-2"
-                    >
-
-                      <BsTrash3 />
-
-                      Delete
-
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )
-          )}
-        </div>
-      )}
-
-      {/* ================= UPDATE MODAL ================= */}
-
-      {
-        showUpdateModal && (
-
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-
-            <div className="bg-[#071226] w-full max-w-2xl rounded-[32px] p-8 relative border border-white/10">
-
-              <button
-                onClick={() =>
-                  setShowUpdateModal(
-                    false
-                  )
-                }
-                className="absolute top-5 right-5 text-white text-2xl"
-              >
-
-                <BsX />
-
-              </button>
-
-              <h2 className="text-4xl font-black mb-8">
-
-                Update Tutor
-
-              </h2>
-
-              <form
-                onSubmit={
-                  handleUpdate
-                }
-                className="space-y-5"
-              >
-
-                <input
-                  type="text"
-                  name="tutorName"
-                  value={
-                    updateForm.tutorName
-                  }
-                  onChange={
-                    handleChange
-                  }
-                  placeholder="Tutor Name"
-                  className="w-full bg-[#020817] border border-white/10 rounded-2xl p-4 outline-none"
-                />
-
-                <input
-                  type="text"
-                  name="subject"
-                  value={
-                    updateForm.subject
-                  }
-                  onChange={
-                    handleChange
-                  }
-                  placeholder="Subject"
-                  className="w-full bg-[#020817] border border-white/10 rounded-2xl p-4 outline-none"
-                />
-
-                <input
-                  type="text"
-                  name="institution"
-                  value={
-                    updateForm.institution
-                  }
-                  onChange={
-                    handleChange
-                  }
-                  placeholder="Institution"
-                  className="w-full bg-[#020817] border border-white/10 rounded-2xl p-4 outline-none"
-                />
-
-                <input
-                  type="number"
-                  name="hourlyFee"
-                  value={
-                    updateForm.hourlyFee
-                  }
-                  onChange={
-                    handleChange
-                  }
-                  placeholder="Hourly Fee"
-                  className="w-full bg-[#020817] border border-white/10 rounded-2xl p-4 outline-none"
-                />
-
-                <input
-                  type="number"
-                  name="totalSlot"
-                  value={
-                    updateForm.totalSlot
-                  }
-                  onChange={
-                    handleChange
-                  }
-                  placeholder="Total Slots"
-                  className="w-full bg-[#020817] border border-white/10 rounded-2xl p-4 outline-none"
-                />
-
-                <input
-                  type="text"
-                  name="photo"
-                  value={
-                    updateForm.photo
-                  }
-                  onChange={
-                    handleChange
-                  }
-                  placeholder="Photo URL"
-                  className="w-full bg-[#020817] border border-white/10 rounded-2xl p-4 outline-none"
-                />
-
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-black text-lg"
-                >
-
-                  Save Changes
-
-                </button>
-              </form>
-            </div>
-          </div>
-        )
-      }
-
-      {/* ================= DELETE MODAL ================= */}
-
-      {
-        showDeleteModal && (
-
-          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 px-4">
-
-            <div className="bg-[#071226] w-full max-w-md rounded-[32px] p-8 border border-white/10 text-center">
-
-              <h2 className="text-3xl font-black mb-4">
-
-                Confirm Delete
-
-              </h2>
-
-              <p className="text-gray-400 mb-8">
-
-                Are you sure you want to permanently delete this tutor?
-
-              </p>
-
-              <div className="flex gap-4">
-
-                <button
-                  onClick={
-                    confirmDelete
-                  }
-                  className="flex-1 bg-red-600 hover:bg-red-700 transition py-3 rounded-2xl font-bold"
-                >
-
-                  Yes Delete
-
-                </button>
-
-                <button
-                  onClick={() =>
-                    setShowDeleteModal(
-                      false
-                    )
-                  }
-                  className="flex-1 bg-gray-700 hover:bg-gray-800 transition py-3 rounded-2xl font-bold"
-                >
-
-                  Cancel
-
-                </button>
-              </div>
-            </div>
-          </div>
-        )
-      }
     </div>
   );
 }

@@ -80,10 +80,12 @@ export default function AddTutorPage() {
           "http://127.0.0.1:5000/tutors",
           {
             method: "POST",
+
             headers: {
               "Content-Type":
                 "application/json",
             },
+
             body: JSON.stringify(
               tutorData
             ),
@@ -92,8 +94,6 @@ export default function AddTutorPage() {
 
         const data =
           await res.json();
-
-        console.log(data);
 
         if (
           data.success ||
@@ -137,25 +137,36 @@ export default function AddTutorPage() {
     };
 
   return (
-    <div className="min-h-screen bg-[#020817] text-white py-16 px-6">
 
-      <div className="max-w-4xl mx-auto bg-[#0B1120] border border-white/10 rounded-3xl p-8 md:p-12">
+    <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-b dark:from-[#020817] dark:to-[#071226] text-black dark:text-white py-16 px-6 transition-colors duration-300">
+
+      <div className="
+        max-w-4xl mx-auto
+        bg-white dark:bg-white/5
+        backdrop-blur-md
+        border border-gray-200 dark:border-white/10
+        rounded-3xl
+        p-8 md:p-12
+        shadow-2xl
+        transition-all duration-300
+      ">
 
         {/* Heading */}
 
-        <div className="text-center mb-10">
+        <div className="text-center mb-12">
 
-          <h1 className="text-4xl font-black">
+          <h1 className="text-4xl md:text-5xl font-black">
 
             Add New Tutor
 
           </h1>
 
-          <p className="text-gray-400 mt-4">
+          <p className="text-gray-600 dark:text-gray-400 mt-4 text-lg">
 
             Create tutor profile and start offering learning sessions.
 
           </p>
+
         </div>
 
         {/* Form */}
@@ -186,8 +197,19 @@ export default function AddTutorPage() {
                 name="tutorName"
                 required
                 placeholder="Enter tutor name"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
 
             {/* Photo */}
@@ -205,9 +227,21 @@ export default function AddTutorPage() {
                 name="photo"
                 required
                 placeholder="Enter image URL"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
+
           </div>
 
           {/* Row 2 */}
@@ -227,51 +261,50 @@ export default function AddTutorPage() {
               <select
                 name="subject"
                 required
-                className="w-full text-black bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  text-black dark:text-white
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               >
 
                 <option value="">
-
                   Select Subject
-
                 </option>
 
                 <option value="Mathematics">
-
                   Mathematics
-
                 </option>
 
                 <option value="Physics">
-
                   Physics
-
                 </option>
 
                 <option value="Biology">
-
                   Biology
-
                 </option>
 
                 <option value="Programming">
-
                   Programming
-
                 </option>
 
                 <option value="English">
-
                   English
-
                 </option>
 
                 <option value="Chemistry">
-
                   Chemistry
-
                 </option>
+
               </select>
+
             </div>
 
             {/* Teaching Mode */}
@@ -287,34 +320,40 @@ export default function AddTutorPage() {
               <select
                 name="teachingMode"
                 required
-                className="w-full text-black bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  text-black dark:text-white
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               >
 
                 <option value="">
-
                   Select Mode
-
                 </option>
 
                 <option value="Online">
-
                   Online
-
                 </option>
 
                 <option value="Offline">
-
                   Offline
-
                 </option>
 
                 <option value="Both">
-
                   Both
-
                 </option>
+
               </select>
+
             </div>
+
           </div>
 
           {/* Row 3 */}
@@ -334,8 +373,19 @@ export default function AddTutorPage() {
                 name="availableDays"
                 required
                 placeholder="Example: Sun - Thu"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
 
             <div>
@@ -351,9 +401,21 @@ export default function AddTutorPage() {
                 name="availableTime"
                 required
                 placeholder="Example: 5 PM - 8 PM"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
+
           </div>
 
           {/* Row 4 */}
@@ -373,8 +435,19 @@ export default function AddTutorPage() {
                 name="hourlyFee"
                 required
                 placeholder="Enter hourly fee"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
 
             <div>
@@ -390,9 +463,21 @@ export default function AddTutorPage() {
                 name="totalSlot"
                 required
                 placeholder="Enter total slots"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
+
           </div>
 
           {/* Row 5 */}
@@ -411,8 +496,19 @@ export default function AddTutorPage() {
                 type="date"
                 name="sessionStartDate"
                 required
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
 
             <div>
@@ -428,9 +524,21 @@ export default function AddTutorPage() {
                 name="location"
                 required
                 placeholder="Area / City"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                className="
+                  w-full
+                  bg-gray-100 dark:bg-[#0B1730]
+                  border border-gray-300 dark:border-white/10
+                  rounded-xl
+                  px-4 py-3
+                  outline-none
+                  focus:ring-2
+                  focus:ring-blue-500
+                  transition
+                "
               />
+
             </div>
+
           </div>
 
           {/* Institution */}
@@ -448,8 +556,19 @@ export default function AddTutorPage() {
               name="institution"
               required
               placeholder="Enter institution name"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+              className="
+                w-full
+                bg-gray-100 dark:bg-[#0B1730]
+                border border-gray-300 dark:border-white/10
+                rounded-xl
+                px-4 py-3
+                outline-none
+                focus:ring-2
+                focus:ring-blue-500
+                transition
+              "
             />
+
           </div>
 
           {/* Experience */}
@@ -467,8 +586,19 @@ export default function AddTutorPage() {
               rows="5"
               required
               placeholder="Write tutor experience..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+              className="
+                w-full
+                bg-gray-100 dark:bg-[#0B1730]
+                border border-gray-300 dark:border-white/10
+                rounded-xl
+                px-4 py-3
+                outline-none
+                focus:ring-2
+                focus:ring-blue-500
+                transition
+              "
             ></textarea>
+
           </div>
 
           {/* Button */}
@@ -476,7 +606,21 @@ export default function AddTutorPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 transition py-4 rounded-2xl font-bold text-lg disabled:opacity-50"
+            className="
+              w-full
+              bg-blue-600
+              hover:bg-blue-700
+              dark:bg-blue-500
+              dark:hover:bg-blue-600
+              transition-all duration-300
+              py-4
+              rounded-2xl
+              font-bold
+              text-lg
+              text-white
+              disabled:opacity-50
+              hover:scale-[1.01]
+            "
           >
 
             {
@@ -486,8 +630,11 @@ export default function AddTutorPage() {
             }
 
           </button>
+
         </form>
+
       </div>
+
     </div>
   );
 }

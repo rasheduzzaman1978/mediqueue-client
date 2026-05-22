@@ -6,71 +6,227 @@ import {
 } from "react-icons/fa";
 
 export default function WhyChooseUs() {
+
   return (
-    <section className="bg-[#0B1120] py-20">
+
+    <section className="py-6 md:py-10 lg:py-12">
+
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="text-center mb-14">
-          <h2 className="text-4xl font-bold">
+        {/* ================= HEADING ================= */}
+
+        <div className="text-center mb-8 md:mb-14">
+
+          <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white">
+
             Why Choose TutorQueue
+
           </h2>
 
-          <p className="text-gray-400 mt-4">
-            We make learning smarter and easier.
+          <p className="text-gray-600 dark:text-gray-400 mt-4 text-lg">
+
+            We make learning smarter, easier, and more flexible.
+
           </p>
+
         </div>
+
+        {/* ================= FEATURES GRID ================= */}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-          <div className="bg-white/5 p-8 rounded-3xl text-center hover:bg-white/10 transition">
-            <FaUserGraduate className="text-5xl text-blue-500 mx-auto mb-5" />
+          {/* ================= CARD 1 ================= */}
 
-            <h3 className="text-2xl font-bold">
+          <div
+            className="
+              bg-white dark:bg-white/5
+              backdrop-blur-md
+
+              border border-gray-200 dark:border-white/10
+
+              p-8
+              rounded-3xl
+
+              text-center
+
+              shadow-lg dark:shadow-2xl
+
+              hover:-translate-y-2
+              hover:shadow-2xl
+
+              transition-all duration-300
+            "
+          >
+
+            <FaUserGraduate
+              className="
+                text-5xl
+                text-blue-600 dark:text-blue-500
+
+                mx-auto
+                mb-5
+              "
+            />
+
+            <h3 className="text-2xl font-black text-black dark:text-white">
+
               Expert Tutors
+
             </h3>
 
-            <p className="text-gray-400 mt-4">
-              Learn from experienced professionals.
+            <p className="text-gray-700 dark:text-gray-400 mt-4 leading-relaxed">
+
+              Learn from experienced professionals with strong teaching backgrounds.
+
             </p>
+
           </div>
 
-          <div className="bg-white/5 p-8 rounded-3xl text-center hover:bg-white/10 transition">
-            <FaClock className="text-5xl text-blue-500 mx-auto mb-5" />
+          {/* ================= CARD 2 ================= */}
 
-            <h3 className="text-2xl font-bold">
+          <div
+            className="
+              bg-white dark:bg-white/5
+              backdrop-blur-md
+
+              border border-gray-200 dark:border-white/10
+
+              p-8
+              rounded-3xl
+
+              text-center
+
+              shadow-lg dark:shadow-2xl
+
+              hover:-translate-y-2
+              hover:shadow-2xl
+
+              transition-all duration-300
+            "
+          >
+
+            <FaClock
+              className="
+                text-5xl
+                text-blue-600 dark:text-blue-500
+
+                mx-auto
+                mb-5
+              "
+            />
+
+            <h3 className="text-2xl font-black text-black dark:text-white">
+
               Flexible Schedule
+
             </h3>
 
-            <p className="text-gray-400 mt-4">
-              Book sessions anytime you want.
+            <p className="text-gray-700 dark:text-gray-400 mt-4 leading-relaxed">
+
+              Book sessions anytime according to your personal availability.
+
             </p>
+
           </div>
 
-          <div className="bg-white/5 p-8 rounded-3xl text-center hover:bg-white/10 transition">
-            <FaLaptop className="text-5xl text-blue-500 mx-auto mb-5" />
+          {/* ================= CARD 3 ================= */}
 
-            <h3 className="text-2xl font-bold">
+          <div
+            className="
+              bg-white dark:bg-white/5
+              backdrop-blur-md
+
+              border border-gray-200 dark:border-white/10
+
+              p-8
+              rounded-3xl
+
+              text-center
+
+              shadow-lg dark:shadow-2xl
+
+              hover:-translate-y-2
+              hover:shadow-2xl
+
+              transition-all duration-300
+            "
+          >
+
+            <FaLaptop
+              className="
+                text-5xl
+                text-blue-600 dark:text-blue-500
+
+                mx-auto
+                mb-5
+              "
+            />
+
+            <h3 className="text-2xl font-black text-black dark:text-white">
+
               Online & Offline
+
             </h3>
 
-            <p className="text-gray-400 mt-4">
-              Learn from anywhere comfortably.
+            <p className="text-gray-700 dark:text-gray-400 mt-4 leading-relaxed">
+
+              Learn comfortably from anywhere with online or offline sessions.
+
             </p>
+
           </div>
 
-          <div className="bg-white/5 p-8 rounded-3xl text-center hover:bg-white/10 transition">
-            <FaBookOpen className="text-5xl text-blue-500 mx-auto mb-5" />
+          {/* ================= CARD 4 ================= */}
 
-            <h3 className="text-2xl font-bold">
+          <div
+            className="
+              bg-white dark:bg-white/5
+              backdrop-blur-md
+
+              border border-gray-200 dark:border-white/10
+
+              p-8
+              rounded-3xl
+
+              text-center
+
+              shadow-lg dark:shadow-2xl
+
+              hover:-translate-y-2
+              hover:shadow-2xl
+
+              transition-all duration-300
+            "
+          >
+
+            <FaBookOpen
+              className="
+                text-5xl
+                text-blue-600 dark:text-blue-500
+
+                mx-auto
+                mb-5
+              "
+            />
+
+            <h3 className="text-2xl font-black text-black dark:text-white">
+
               Easy Booking
+
             </h3>
 
-            <p className="text-gray-400 mt-4">
-              Smooth and quick tutor booking.
+            <p className="text-gray-700 dark:text-gray-400 mt-4 leading-relaxed">
+
+              Smooth and quick tutor booking with a user-friendly experience.
+
             </p>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
   );
 }

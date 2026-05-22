@@ -123,7 +123,7 @@ export default function BookingForm({
       <div>
 
         <label className="block mb-2 text-sm text-gray-400">
-          Student Name
+          Student Name:
         </label>
 
         <input
@@ -133,7 +133,7 @@ export default function BookingForm({
           defaultValue={
             session?.user?.name || ""
           }
-          className="w-full bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
+          className="w-full bg-gray-100 dark:bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
         />
 
       </div>
@@ -142,7 +142,7 @@ export default function BookingForm({
       <div>
 
         <label className="block mb-2 text-sm text-gray-400">
-          Phone
+          Phone:
         </label>
 
         <input
@@ -150,7 +150,7 @@ export default function BookingForm({
           name="phone"
           required
           placeholder="Enter phone number"
-          className="w-full bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
+          className="w-full bg-gray-100 dark:bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
         />
 
       </div>
@@ -159,14 +159,14 @@ export default function BookingForm({
       <div>
 
         <label className="block mb-2 text-sm text-gray-400">
-          Tutor ID
+          Tutor ID:
         </label>
 
         <input
           type="text"
           value={tutor._id}
           readOnly
-          className="w-full bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
+          className="w-full bg-gray-100 dark:bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
         />
 
       </div>
@@ -175,14 +175,14 @@ export default function BookingForm({
       <div>
 
         <label className="block mb-2 text-sm text-gray-400">
-          Tutor Name
+          Tutor Name:
         </label>
 
         <input
           type="text"
           value={tutor.tutorName}
           readOnly
-          className="w-full bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
+          className="w-full bg-gray-100 dark:bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
         />
 
       </div>
@@ -191,7 +191,7 @@ export default function BookingForm({
       <div>
 
         <label className="block mb-2 text-sm text-gray-400">
-          Student Email
+          Student Email:
         </label>
 
         <input
@@ -200,7 +200,7 @@ export default function BookingForm({
             session?.user?.email || ""
           }
           readOnly
-          className="w-full bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
+          className="w-full bg-gray-100 dark:bg-[#0B1730] border border-white/10 rounded-xl px-5 py-3 outline-none"
         />
 
       </div>
