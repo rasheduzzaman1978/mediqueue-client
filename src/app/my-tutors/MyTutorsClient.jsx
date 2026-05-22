@@ -50,7 +50,7 @@ export default function MyTutorsClient() {
         try {
 
           const res = await fetch(
-            `http://127.0.0.1:5000/my-tutors?email=${session.user.email}`
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors?email=${session.user.email}`
           );
 
           const data =

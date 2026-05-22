@@ -51,7 +51,7 @@ export default function EditTutorClient({ id }) {
       try {
 
         const res = await fetch(
-          `http://localhost:5000/tutors/${id}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`
         );
 
         const data = await res.json();
@@ -93,7 +93,7 @@ export default function EditTutorClient({ id }) {
     try {
 
       const res = await fetch(
-        `http://127.0.0.1:5000/tutors/${id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
         {
           method: "PATCH",
 

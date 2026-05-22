@@ -58,7 +58,7 @@ export default function BookingForm({
     try {
 
       const res = await fetch(
-        "http://127.0.0.1:5000/bookings",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
         {
           method: "POST",
 

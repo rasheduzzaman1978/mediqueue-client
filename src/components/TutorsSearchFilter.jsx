@@ -40,7 +40,7 @@ export default function TutorsSearchFilter() {
         setLoading(true);
 
         let url =
-          `http://localhost:5000/tutors?search=${searchValue}`;
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors?search=${searchValue}`;
 
         // DATE FILTER
 

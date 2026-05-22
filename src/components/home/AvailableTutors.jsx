@@ -22,7 +22,7 @@ export default function AvailableTutors() {
   useEffect(() => {
 
     fetch(
-      "http://localhost:5000/featured-tutors"
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/featured-tutors`
     )
       .then((res) =>
         res.json()

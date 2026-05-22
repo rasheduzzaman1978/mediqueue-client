@@ -8,7 +8,7 @@ import Image from "next/image";
 async function getTutor(id) {
 
   const res = await fetch(
-    `http://127.0.0.1:5000/tutors/${id}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
     {
       cache: "no-store",
     }

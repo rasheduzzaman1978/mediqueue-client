@@ -28,7 +28,7 @@ export default function MyBookingsClient() {
     if (session?.user?.email) {
 
       fetch(
-        `http://127.0.0.1:5000/bookings?email=${session.user.email}`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings?email=${session.user.email}`
       )
         .then((res) =>
           res.json()
@@ -58,7 +58,7 @@ export default function MyBookingsClient() {
       try {
 
         const res = await fetch(
-          `http://127.0.0.1:5000/bookings/${id}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${id}`,
           {
             method: "PATCH",
           }
