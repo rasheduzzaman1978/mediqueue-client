@@ -5,8 +5,6 @@ import Categories from "@/components/home/Categories";
 
 import HeroSection from "@/components/home/HeroSection";
 
-import Testimonials from "@/components/home/Testimonials";
-
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 
 export const metadata = {
@@ -45,7 +43,7 @@ const HomePage = () => {
       {/* ================= WHY CHOOSE US ================= */}
 
       <section className="
-        py-20 px-4 md:px-8
+        py-6 md:py-8 lg:py-12 px-4 md:px-8
 
         bg-black/[0.02]
         dark:bg-white/[0.02]
@@ -65,20 +63,7 @@ const HomePage = () => {
 
       </section>
 
-      {/* ================= TESTIMONIALS ================= */}
-
-      <section className="
-        py-20 px-4 md:px-8
-
-        bg-black/[0.02]
-        dark:bg-white/[0.02]
-
-        backdrop-blur-md
-      ">
-
-        <Testimonials />
-
-      </section>
+      
 
     </main>
   );
