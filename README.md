@@ -135,8 +135,10 @@ The website is fully optimized for:
 Email: rashedzaman@gmail.com
 
 ## 🔗 Links
+Client-side code GitHub repository Link: https://github.com/rasheduzzaman1978/mediqueue-client
 
-- Live Site: 
-- Client Github Repository: 
-- Server Github Repository: 
+Server-side code GitHub repository Link: https://github.com/rasheduzzaman1978/mediqueue-server
+
+Live website link: https://mediqueue-client-snowy.vercel.app
+
 
