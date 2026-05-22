@@ -24,11 +24,9 @@ export function DeleteAlert({ tutor }) {
 
       const data = await res.json();
 
-      console.log(data);
+      if (res.ok && data.success) {
 
-      if (data.success) {
-
-        toast.success("Tutor deleted successfully");
+        toast.success(`${tutorName} deleted successfully`);
 
         router.push("/tutors");
 
@@ -36,7 +34,7 @@ export function DeleteAlert({ tutor }) {
 
       } else {
 
-        toast.error("Delete failed");
+        toast.error(data.message || "Delete failed");
       }
 
     } catch (error) {
@@ -48,6 +46,7 @@ export function DeleteAlert({ tutor }) {
   };
 
   return (
+
     <AlertDialog>
 
       {/* Open Modal Button */}
@@ -55,9 +54,11 @@ export function DeleteAlert({ tutor }) {
         className="text-red-500 rounded-none"
         variant="outline"
       >
+
         <BsTrash2 size={16} />
 
         Delete
+
       </Button>
 
       {/* Modal */}
