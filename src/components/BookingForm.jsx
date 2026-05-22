@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useRouter } from "next/navigation";
-
 import { toast } from "react-toastify";
 
 import { authClient } from "@/lib/auth-client";
@@ -115,6 +113,7 @@ export default function BookingForm({
   }
 
   return (
+
     <form
       onSubmit={handleBooking}
       className="space-y-6"
