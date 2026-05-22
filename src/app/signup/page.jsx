@@ -28,21 +28,34 @@ export default function RegisterPage() {
   const validate = () => {
     let newErrors = {};
 
-    if (!form.name) newErrors.name = "Name is required";
+    // Name validation
+    if (!form.name) {
+      newErrors.name = "Name is required";
+    }
 
+    // Email validation
     if (!form.email) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(form.email)) {
       newErrors.email = "Invalid email";
     }
 
+    // Password validation
     if (!form.password) {
       newErrors.password = "Password is required";
     } else if (form.password.length < 6) {
-      newErrors.password = "Minimum 6 characters";
+      newErrors.password =
+        "Password must be at least 6 characters";
+    } else if (!/[A-Z]/.test(form.password)) {
+      newErrors.password =
+        "Password must contain at least one uppercase letter";
+    } else if (!/[a-z]/.test(form.password)) {
+      newErrors.password =
+        "Password must contain at least one lowercase letter";
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -50,6 +63,7 @@ export default function RegisterPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    // Stop register if validation fails
     if (!validate()) {
       toast.error("Please fix the errors");
       return;
@@ -79,7 +93,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 px-4">
+    <div className="flex items-center justify-center bg-gray-100 px-4 min-h-screen">
       <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
 
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
@@ -93,19 +107,25 @@ export default function RegisterPage() {
             <label className="text-sm text-gray-600">
               Name <span className="text-red-500 font-bold">*</span>
             </label>
+
             <input
               type="text"
               value={form.name}
               placeholder="Enter your name"
               className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
-                errors.name ? "border-red-500" : "focus:border-blue-500"
+                errors.name
+                  ? "border-red-500"
+                  : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, name: e.target.value })
               }
             />
+
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.name}
+              </p>
             )}
           </div>
 
@@ -114,6 +134,7 @@ export default function RegisterPage() {
             <label className="text-sm text-gray-600">
               Photo URL
             </label>
+
             <input
               type="text"
               value={form.image}
@@ -130,19 +151,25 @@ export default function RegisterPage() {
             <label className="text-sm text-gray-600">
               Email <span className="text-red-500 font-bold">*</span>
             </label>
+
             <input
               type="email"
               value={form.email}
               placeholder="john@example.com"
               className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
-                errors.email ? "border-red-500" : "focus:border-blue-500"
+                errors.email
+                  ? "border-red-500"
+                  : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
               }
             />
+
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email}
+              </p>
             )}
           </div>
 
@@ -157,21 +184,27 @@ export default function RegisterPage() {
               value={form.password}
               placeholder="••••••••"
               className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none ${
-                errors.password ? "border-red-500" : "focus:border-blue-500"
+                errors.password
+                  ? "border-red-500"
+                  : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, password: e.target.value })
               }
             />
 
+            {/* Show/Hide Password */}
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
               className="absolute right-3 top-10 text-gray-500"
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
 
+            {/* Password Error */}
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.password}
@@ -179,7 +212,7 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Button */}
+          {/* Register Button */}
           <Button
             type="submit"
             disabled={loading}
@@ -190,9 +223,13 @@ export default function RegisterPage() {
 
         </form>
 
+        {/* Login Link */}
         <p className="text-center mt-5 text-sm text-gray-600">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-600 hover:underline">
+          <Link
+            href="/login"
+            className="text-blue-600 hover:underline"
+          >
             Login
           </Link>
         </p>

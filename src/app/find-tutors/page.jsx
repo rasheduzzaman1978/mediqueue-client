@@ -70,11 +70,11 @@ export default function FindTutorsPage() {
 
   return (
 
-    <div className="min-h-screen bg-[#020817] text-white px-6 py-16">
+    <div className="min-h-screen bg-[#020817] text-white px-6 py-10">
 
       {/* HEADING */}
 
-      <h1 className="text-3xl md:text-5xl font-black mb-12 py-4">
+      <h1 className="text-3xl md:text-5xl font-black mb-4 md:mb-8 py-4">
 
         {category} Tutors
 

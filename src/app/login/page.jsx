@@ -24,26 +24,37 @@ export default function LoginPage() {
   const validate = () => {
     let newErrors = {};
 
+    // Email validation
     if (!form.email) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(form.email)) {
       newErrors.email = "Invalid email";
     }
 
+    // Password validation
     if (!form.password) {
       newErrors.password = "Password is required";
     } else if (form.password.length < 6) {
-      newErrors.password = "Minimum 6 characters";
+      newErrors.password =
+        "Password must be at least 6 characters";
+    } else if (!/[A-Z]/.test(form.password)) {
+      newErrors.password =
+        "Password must contain at least one uppercase letter";
+    } else if (!/[a-z]/.test(form.password)) {
+      newErrors.password =
+        "Password must contain at least one lowercase letter";
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  // 🔐 Login (ONLY handler)
+  // 🔐 Login
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    // ❌ Stop login if validation fails
     if (!validate()) {
       toast.error("Please fix errors first");
       return;
@@ -62,9 +73,9 @@ export default function LoginPage() {
       } else {
         toast.success("Login successful 🎉");
 
-        // ✅ IMPORTANT FIX
+        // ✅ Redirect after login
         router.replace("/");
-        router.refresh(); // 🔥 navbar instantly update হবে
+        router.refresh();
       }
     } catch (err) {
       toast.error("Something went wrong");
@@ -99,19 +110,25 @@ export default function LoginPage() {
             <label className="text-sm text-gray-600">
               Email <span className="text-red-500">*</span>
             </label>
+
             <input
               type="email"
               value={form.email}
               placeholder="Enter your email"
-              className={`w-full border rounded-lg px-3 py-2 mt-1 ${
-                errors.email ? "border-red-500" : "focus:border-blue-500"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 focus:outline-none ${
+                errors.email
+                  ? "border-red-500"
+                  : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
               }
             />
+
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email}
+              </p>
             )}
           </div>
 
@@ -125,28 +142,36 @@ export default function LoginPage() {
               type={showPassword ? "text" : "password"}
               value={form.password}
               placeholder="Enter your password"
-              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 ${
-                errors.password ? "border-red-500" : "focus:border-blue-500"
+              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10 focus:outline-none ${
+                errors.password
+                  ? "border-red-500"
+                  : "focus:border-blue-500"
               }`}
               onChange={(e) =>
                 setForm({ ...form, password: e.target.value })
               }
             />
 
+            {/* 👁 Show / Hide Password */}
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
               className="absolute right-3 top-10 text-gray-500"
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
 
+            {/* Password Error */}
             {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
             )}
           </div>
 
-              {/* Forgot password */}
+          {/* Forgot password */}
           <div className="text-right">
             <Link
               href="/forgot-password"
@@ -156,7 +181,7 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          {/* ✅ FIXED Button */}
+          {/* Login Button */}
           <Button
             type="submit"
             disabled={loading}
@@ -183,9 +208,13 @@ export default function LoginPage() {
           Continue with Google
         </Button>
 
+        {/* Register Link */}
         <p className="text-center mt-5 text-sm text-gray-600">
           Don’t have an account?{" "}
-          <Link href="/signup" className="text-blue-600 hover:underline">
+          <Link
+            href="/signup"
+            className="text-blue-600 hover:underline"
+          >
             Register
           </Link>
         </p>
