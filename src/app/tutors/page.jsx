@@ -30,8 +30,9 @@ export default function TutorsPage() {
 
         <h1
           className="
-            text-4xl
-            md:text-5xl
+            text-2xl
+            md:text-3xl
+            lg:text-5xl
             font-black
             mb-4
           "
