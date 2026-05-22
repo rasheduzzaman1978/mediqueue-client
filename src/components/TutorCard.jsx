@@ -61,7 +61,7 @@ export default function TutorCard({
 
           <h2
             className="
-              text-2xl
+              text-xl md:text-2xl
               font-black
               leading-tight
             "

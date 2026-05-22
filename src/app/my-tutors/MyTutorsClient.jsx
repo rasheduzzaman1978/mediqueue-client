@@ -100,7 +100,7 @@ export default function MyTutorsClient() {
 
         <div>
 
-          <h1 className="text-3xl md:text-5xl font-black mb-2">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-2">
 
             My Tutors
 

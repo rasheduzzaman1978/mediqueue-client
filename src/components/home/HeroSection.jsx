@@ -115,7 +115,7 @@ export default function HeroSection() {
 
                 </p>
 
-                <h1 className="text-3xl md:text-5xl font-black leading-tight text-black dark:text-white">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-black dark:text-white">
 
                   {slide.title}
 

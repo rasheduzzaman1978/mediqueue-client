@@ -35,7 +35,7 @@ export default function Footer() {
               className="flex items-center"
             >
 
-              <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
 
                 TutorQueue
 

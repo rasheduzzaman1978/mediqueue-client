@@ -47,7 +47,7 @@ export default async function BookSessionPage({
 
           <div>
 
-            <h1 className="text-3xl md:text-4xl font-black">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-black">
 
               Book Session
 
@@ -101,7 +101,7 @@ export default async function BookSessionPage({
 
           <div>
 
-            <h2 className="text-xl font-bold">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">
 
               {tutor.tutorName}
 

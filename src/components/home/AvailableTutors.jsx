@@ -45,7 +45,7 @@ export default function AvailableTutors() {
 
       <div className="text-center mb-14">
 
-        <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black dark:text-white">
 
           Available Tutors
 

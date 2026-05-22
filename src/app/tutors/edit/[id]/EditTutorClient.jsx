@@ -168,7 +168,7 @@ export default function EditTutorClient({ id }) {
 
           <div>
 
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
               Update Tutor
             </h1>
 

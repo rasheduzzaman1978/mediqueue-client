@@ -155,7 +155,7 @@ export default function AddTutorClient() {
 
         <div className="text-center mb-12">
 
-          <h1 className="text-4xl md:text-5xl font-black">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black">
 
             Add New Tutor
 

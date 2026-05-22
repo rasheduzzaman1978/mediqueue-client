@@ -15,8 +15,10 @@ export default function TutorsPage() {
         dark:to-[#071226]
         text-black
         dark:text-white
-        px-6
-        py-12
+        px-3 md:px-6
+        py-6
+        md:py-8
+        lg:py-12
         transition-colors
         duration-300
       "

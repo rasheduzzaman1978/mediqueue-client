@@ -17,7 +17,7 @@ export default function WhyChooseUs() {
 
         <div className="text-center mb-8 md:mb-14">
 
-          <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-black dark:text-white">
 
             Why Choose TutorQueue
 
@@ -68,7 +68,7 @@ export default function WhyChooseUs() {
               "
             />
 
-            <h3 className="text-2xl font-black text-black dark:text-white">
+            <h3 className="text-xl md:text-2xl font-black text-black dark:text-white">
 
               Expert Tutors
 

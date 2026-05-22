@@ -138,7 +138,7 @@ export default function TutorsSearchFilter() {
           backdrop-blur-md
           rounded-3xl
           p-6
-          mb-12
+          mb-6 md:mb-8 lg:mb-10
           shadow-lg
         "
       >

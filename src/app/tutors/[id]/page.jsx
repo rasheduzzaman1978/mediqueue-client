@@ -194,7 +194,7 @@ export default async function TutorDetailsPage({
 
             {/* Name */}
 
-            <h1 className="text-4xl lg:text-6xl font-black mb-5 leading-tight tracking-tight">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-black mb-5 leading-tight tracking-tight">
 
               {tutor.tutorName}
 
@@ -390,7 +390,7 @@ export default async function TutorDetailsPage({
 
                 </p>
 
-                <h2 className="text-5xl font-black text-blue-500 dark:text-blue-400 mt-2">
+                <h2 className="text-xl md:text-2xl font-black text-blue-500 dark:text-blue-400 mt-2">
 
                   $
                   {tutor.hourlyFee}

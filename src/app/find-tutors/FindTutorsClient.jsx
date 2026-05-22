@@ -82,7 +82,7 @@ export default function FindTutorsClient() {
 
       <div className="mb-10">
 
-        <h1 className="text-3xl md:text-5xl font-black mb-4 capitalize">
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-black mb-4 capitalize">
 
           {category} Tutors
 
@@ -149,7 +149,7 @@ export default function FindTutorsClient() {
 
               {/* Tutor Name */}
 
-              <h2 className="text-2xl font-black mb-3">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-black mb-3">
 
                 {tutor.tutorName}
 
