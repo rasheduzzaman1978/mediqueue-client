@@ -203,27 +203,27 @@ export default function SignupClient() {
 
   return (
 
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#05060F] px-4 py-10">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-100 px-4 py-10 transition-colors duration-300 dark:bg-[#05060F]">
 
       {/* BACKGROUND GLOW */}
 
-      <div className="absolute left-1/2 top-[-200px] h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[140px]" />
+      <div className="absolute left-1/2 top-[-200px] h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[140px] dark:bg-indigo-500/20" />
 
       {/* CARD */}
 
-      <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-2xl sm:p-8">
+      <div className="relative z-10 w-full max-w-md rounded-3xl border border-gray-200 bg-white p-6 shadow-xl transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-2xl dark:backdrop-blur-2xl sm:p-8">
 
         {/* TOP */}
 
         <div className="text-center">
 
-          <h1 className="text-3xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
 
             Create an Account
 
           </h1>
 
-          <p className="mt-3 text-sm text-zinc-400">
+          <p className="mt-3 text-sm text-gray-500 dark:text-zinc-400">
 
             Join us and start your journey today.
 
@@ -243,7 +243,7 @@ export default function SignupClient() {
 
           <div>
 
-            <label className="mb-2 block text-sm font-medium text-zinc-300">
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300">
 
               Name{" "}
 
@@ -255,7 +255,7 @@ export default function SignupClient() {
 
             <div className="relative">
 
-              <HiOutlineUser className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+              <HiOutlineUser className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-zinc-500" />
 
               <input
                 type="text"
@@ -263,7 +263,7 @@ export default function SignupClient() {
                 placeholder="Enter your name"
                 value={form.name}
                 onChange={handleChange}
-                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+                className="h-12 w-full rounded-xl border border-gray-300 bg-white pl-12 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-zinc-500"
               />
             </div>
 
@@ -281,7 +281,7 @@ export default function SignupClient() {
 
           <div>
 
-            <label className="mb-2 block text-sm font-medium text-zinc-300">
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300">
 
               Photo URL
 
@@ -289,7 +289,7 @@ export default function SignupClient() {
 
             <div className="relative">
 
-              <HiOutlinePhotograph className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+              <HiOutlinePhotograph className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-zinc-500" />
 
               <input
                 type="text"
@@ -297,7 +297,7 @@ export default function SignupClient() {
                 placeholder="https://example.com/photo.jpg"
                 value={form.image}
                 onChange={handleChange}
-                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+                className="h-12 w-full rounded-xl border border-gray-300 bg-white pl-12 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-zinc-500"
               />
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function SignupClient() {
 
           <div>
 
-            <label className="mb-2 block text-sm font-medium text-zinc-300">
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300">
 
               Email{" "}
 
@@ -318,7 +318,7 @@ export default function SignupClient() {
 
             <div className="relative">
 
-              <HiOutlineMail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+              <HiOutlineMail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-zinc-500" />
 
               <input
                 type="email"
@@ -326,7 +326,7 @@ export default function SignupClient() {
                 placeholder="john@example.com"
                 value={form.email}
                 onChange={handleChange}
-                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+                className="h-12 w-full rounded-xl border border-gray-300 bg-white pl-12 pr-4 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-zinc-500"
               />
             </div>
 
@@ -344,7 +344,7 @@ export default function SignupClient() {
 
           <div>
 
-            <label className="mb-2 block text-sm font-medium text-zinc-300">
+            <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-zinc-300">
 
               Password{" "}
 
@@ -356,7 +356,7 @@ export default function SignupClient() {
 
             <div className="relative">
 
-              <FiLock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+              <FiLock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 dark:text-zinc-500" />
 
               <input
                 type={
@@ -368,7 +368,7 @@ export default function SignupClient() {
                 placeholder="********"
                 value={form.password}
                 onChange={handleChange}
-                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-12 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+                className="h-12 w-full rounded-xl border border-gray-300 bg-white pl-12 pr-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-zinc-500"
               />
 
               {/* SHOW/HIDE */}
@@ -380,7 +380,7 @@ export default function SignupClient() {
                     !showPassword
                   )
                 }
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 transition hover:text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700 dark:text-zinc-500 dark:hover:text-white"
               >
 
                 {showPassword ? (
@@ -397,7 +397,7 @@ export default function SignupClient() {
 
             {/* PASSWORD HINT */}
 
-            <p className="mt-2 text-xs text-zinc-500">
+            <p className="mt-2 text-xs text-gray-500 dark:text-zinc-500">
 
               Password must contain uppercase,
               lowercase and minimum 6 characters.
@@ -430,13 +430,13 @@ export default function SignupClient() {
 
           {/* LOGIN */}
 
-          <p className="pt-3 text-center text-sm text-zinc-400">
+          <p className="pt-3 text-center text-sm text-gray-600 dark:text-zinc-400">
 
             Already have an account?{" "}
 
             <Link
               href="/login"
-              className="font-medium text-indigo-400 transition hover:text-indigo-300"
+              className="font-medium text-indigo-600 transition hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
 
               Login
