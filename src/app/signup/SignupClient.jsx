@@ -1,24 +1,41 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Card } from "@heroui/react";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+
+import { toast } from "react-toastify";
 
 import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
 
-import { toast } from "react-toastify";
+import {
+  HiOutlineMail,
+  HiOutlineUser,
+  HiOutlinePhotograph,
+} from "react-icons/hi";
+
+import { FiLock } from "react-icons/fi";
+
 import { createAuthClient } from "better-auth/react";
 
 const authClient =
   createAuthClient();
 
 export default function SignupClient() {
+
   const router =
     useRouter();
+
+  const [showPassword, setShowPassword] =
+    useState(false);
+
+  const [loading, setLoading] =
+    useState(false);
 
   const [form, setForm] =
     useState({
@@ -31,58 +48,66 @@ export default function SignupClient() {
   const [errors, setErrors] =
     useState({});
 
-  const [loading, setLoading] =
-    useState(false);
+  // VALIDATION
 
-  const [
-    showPassword,
-    setShowPassword,
-  ] = useState(false);
-
-  // 🔥 Validation
   const validate = () => {
+
     let newErrors = {};
 
-    // Name validation
-    if (!form.name) {
+    // NAME
+
+    if (!form.name.trim()) {
+
       newErrors.name =
         "Name is required";
     }
 
-    // Email validation
+    // EMAIL
+
     if (!form.email) {
+
       newErrors.email =
         "Email is required";
+
     } else if (
-      !/\S+@\S+\.\S+/.test(
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
         form.email
       )
     ) {
+
       newErrors.email =
-        "Invalid email";
+        "Invalid email address";
     }
 
-    // Password validation
+    // PASSWORD
+
     if (!form.password) {
+
       newErrors.password =
         "Password is required";
+
     } else if (
       form.password.length < 6
     ) {
+
       newErrors.password =
         "Password must be at least 6 characters";
+
     } else if (
       !/[A-Z]/.test(
         form.password
       )
     ) {
+
       newErrors.password =
         "Password must contain at least one uppercase letter";
+
     } else if (
       !/[a-z]/.test(
         form.password
       )
     ) {
+
       newErrors.password =
         "Password must contain at least one lowercase letter";
     }
@@ -95,15 +120,33 @@ export default function SignupClient() {
     );
   };
 
-  // 🔐 Register
+  // HANDLE INPUT
+
+  const handleChange = (e) => {
+
+    setForm({
+      ...form,
+      [e.target.name]:
+        e.target.value,
+    });
+
+    setErrors({
+      ...errors,
+      [e.target.name]: "",
+    });
+  };
+
+  // REGISTER
+
   const handleRegister =
     async (e) => {
+
       e.preventDefault();
 
-      // Stop register if validation fails
       if (!validate()) {
+
         toast.error(
-          "Please fix the errors"
+          "Please fix the errors!"
         );
 
         return;
@@ -112,8 +155,10 @@ export default function SignupClient() {
       setLoading(true);
 
       try {
+
         const res =
           await authClient.signUp.email({
+
             email:
               form.email,
 
@@ -129,11 +174,14 @@ export default function SignupClient() {
           });
 
         if (res?.error) {
+
           toast.error(
             res.error.message ||
               "Registration failed"
           );
+
         } else {
+
           toast.success(
             "Registration successful 🎉"
           );
@@ -142,7 +190,9 @@ export default function SignupClient() {
             "/login"
           );
         }
+
       } catch (err) {
+
         toast.error(
           "Something went wrong"
         );
@@ -152,205 +202,249 @@ export default function SignupClient() {
     };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 px-4 min-h-screen text-black">
-      <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          Create an Account
-        </h2>
+
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#05060F] px-4 py-10">
+
+      {/* BACKGROUND GLOW */}
+
+      <div className="absolute left-1/2 top-[-200px] h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[140px]" />
+
+      {/* CARD */}
+
+      <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-2xl sm:p-8">
+
+        {/* TOP */}
+
+        <div className="text-center">
+
+          <h1 className="text-3xl font-bold tracking-tight text-white">
+
+            Create an Account
+
+          </h1>
+
+          <p className="mt-3 text-sm text-zinc-400">
+
+            Join us and start your journey today.
+
+          </p>
+        </div>
+
+        {/* FORM */}
 
         <form
           onSubmit={
             handleRegister
           }
-          className="space-y-5"
+          className="mt-10 space-y-5"
         >
-          {/* Name */}
+
+          {/* NAME */}
+
           <div>
-            <label className="text-sm text-gray-600">
+
+            <label className="mb-2 block text-sm font-medium text-zinc-300">
+
               Name{" "}
-              <span className="text-red-500 font-bold">
+
+              <span className="text-red-500">
                 *
               </span>
+
             </label>
 
-            <input
-              type="text"
-              value={form.name}
-              placeholder="Enter your name"
-              autoComplete="name"
-              className={`w-full border rounded-lg px-3 py-2 mt-1
-              bg-white text-black placeholder:text-gray-400
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${
-                errors.name
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
-              }`}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  name:
-                    e.target.value,
-                })
-              }
-            />
+            <div className="relative">
+
+              <HiOutlineUser className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={form.name}
+                onChange={handleChange}
+                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+              />
+            </div>
 
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">
+
+              <p className="mt-2 text-sm text-red-500">
+
                 {errors.name}
+
               </p>
             )}
           </div>
 
-          {/* Photo */}
+          {/* PHOTO URL */}
+
           <div>
-            <label className="text-sm text-gray-600">
+
+            <label className="mb-2 block text-sm font-medium text-zinc-300">
+
               Photo URL
+
             </label>
 
-            <input
-              type="text"
-              value={form.image}
-              placeholder="https://example.com/photo.jpg"
-              autoComplete="url"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1
-              bg-white text-black placeholder:text-gray-400
-              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  image:
-                    e.target.value,
-                })
-              }
-            />
+            <div className="relative">
+
+              <HiOutlinePhotograph className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+
+              <input
+                type="text"
+                name="image"
+                placeholder="https://example.com/photo.jpg"
+                value={form.image}
+                onChange={handleChange}
+                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+              />
+            </div>
           </div>
 
-          {/* Email */}
+          {/* EMAIL */}
+
           <div>
-            <label className="text-sm text-gray-600">
+
+            <label className="mb-2 block text-sm font-medium text-zinc-300">
+
               Email{" "}
-              <span className="text-red-500 font-bold">
+
+              <span className="text-red-500">
                 *
               </span>
+
             </label>
 
-            <input
-              type="email"
-              value={form.email}
-              placeholder="john@example.com"
-              autoComplete="email"
-              className={`w-full border rounded-lg px-3 py-2 mt-1
-              bg-white text-black placeholder:text-gray-400
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${
-                errors.email
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
-              }`}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  email:
-                    e.target.value,
-                })
-              }
-            />
+            <div className="relative">
+
+              <HiOutlineMail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="john@example.com"
+                value={form.email}
+                onChange={handleChange}
+                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+              />
+            </div>
 
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {
-                  errors.email
-                }
+
+              <p className="mt-2 text-sm text-red-500">
+
+                {errors.email}
+
               </p>
             )}
           </div>
 
-          {/* Password */}
-          <div className="relative">
-            <label className="text-sm text-gray-600">
+          {/* PASSWORD */}
+
+          <div>
+
+            <label className="mb-2 block text-sm font-medium text-zinc-300">
+
               Password{" "}
-              <span className="text-red-500 font-bold">
+
+              <span className="text-red-500">
                 *
               </span>
+
             </label>
 
-            <input
-              type={
-                showPassword
-                  ? "text"
-                  : "password"
-              }
-              value={form.password}
-              placeholder="••••••••"
-              autoComplete="new-password"
-              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10
-              bg-white text-black placeholder:text-gray-400
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${
-                errors.password
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
-              }`}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  password:
-                    e.target.value,
-                })
-              }
-            />
+            <div className="relative">
 
-            {/* Show/Hide Password */}
-            <button
-              type="button"
-              onClick={() =>
-                setShowPassword(
-                  !showPassword
-                )
-              }
-              className="absolute right-3 top-10 text-gray-500"
-            >
-              {showPassword ? (
-                <FaEyeSlash />
-              ) : (
-                <FaEye />
-              )}
-            </button>
+              <FiLock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
 
-            {/* Password Error */}
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {
-                  errors.password
+              <input
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
                 }
+                name="password"
+                placeholder="********"
+                value={form.password}
+                onChange={handleChange}
+                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-12 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+              />
+
+              {/* SHOW/HIDE */}
+
+              <button
+                type="button"
+                onClick={() =>
+                  setShowPassword(
+                    !showPassword
+                  )
+                }
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 transition hover:text-white"
+              >
+
+                {showPassword ? (
+
+                  <FaEyeSlash className="h-5 w-5" />
+
+                ) : (
+
+                  <FaEye className="h-5 w-5" />
+
+                )}
+              </button>
+            </div>
+
+            {/* PASSWORD HINT */}
+
+            <p className="mt-2 text-xs text-zinc-500">
+
+              Password must contain uppercase,
+              lowercase and minimum 6 characters.
+
+            </p>
+
+            {errors.password && (
+
+              <p className="mt-2 text-sm text-red-500">
+
+                {errors.password}
+
               </p>
             )}
           </div>
 
-          {/* Register Button */}
-          <Button
+          {/* BUTTON */}
+
+          <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            className="mt-3 h-12 w-full rounded-xl bg-indigo-600 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50"
           >
-            {loading
-              ? "Registering..."
-              : "Register"}
-          </Button>
-        </form>
 
-        {/* Login Link */}
-        <p className="text-center mt-5 text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link
-            href="/login"
-            className="text-blue-600 hover:underline"
-          >
-            Login
-          </Link>
-        </p>
-      </Card>
-    </div>
+            {loading
+              ? "Creating..."
+              : "Create Account"}
+
+          </button>
+
+          {/* LOGIN */}
+
+          <p className="pt-3 text-center text-sm text-zinc-400">
+
+            Already have an account?{" "}
+
+            <Link
+              href="/login"
+              className="font-medium text-indigo-400 transition hover:text-indigo-300"
+            >
+
+              Login
+
+            </Link>
+          </p>
+        </form>
+      </div>
+    </section>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Card } from "@heroui/react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { toast } from "react-toastify";
 
 import {
   FaGoogle,
@@ -11,11 +12,19 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-import { toast } from "react-toastify";
+import { HiOutlineMail } from "react-icons/hi";
+import { FiLock } from "react-icons/fi";
+
 import { authClient } from "@/lib/auth-client";
 
 export default function LoginClient() {
   const router = useRouter();
+
+  const [showPassword, setShowPassword] =
+    useState(false);
+
+  const [loading, setLoading] =
+    useState(false);
 
   const [form, setForm] = useState({
     email: "",
@@ -23,26 +32,25 @@ export default function LoginClient() {
   });
 
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] =
-    useState(false);
 
-  // 🔥 Validation
+  // VALIDATION
   const validate = () => {
     let newErrors = {};
 
-    // Email validation
+    // EMAIL
     if (!form.email) {
       newErrors.email =
         "Email is required";
     } else if (
-      !/\S+@\S+\.\S+/.test(form.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+        form.email
+      )
     ) {
       newErrors.email =
-        "Invalid email";
+        "Invalid email address";
     }
 
-    // Password validation
+    // PASSWORD
     if (!form.password) {
       newErrors.password =
         "Password is required";
@@ -70,15 +78,15 @@ export default function LoginClient() {
     );
   };
 
-  // 🔐 Login
+  // LOGIN
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // ❌ Stop login if validation fails
     if (!validate()) {
       toast.error(
-        "Please fix errors first"
+        "Please fix the errors!"
       );
+
       return;
     }
 
@@ -101,7 +109,6 @@ export default function LoginClient() {
           "Login successful 🎉"
         );
 
-        // ✅ Redirect after login
         router.replace("/");
         router.refresh();
       }
@@ -114,12 +121,13 @@ export default function LoginClient() {
     setLoading(false);
   };
 
-  // 🔐 Google login
+  // GOOGLE LOGIN
   const handleGoogleLogin =
     async () => {
       try {
         await authClient.signIn.social({
           provider: "google",
+          callbackURL: "/",
         });
       } catch (err) {
         toast.error(
@@ -129,171 +137,193 @@ export default function LoginClient() {
     };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 text-black">
-      <Card className="w-full max-w-md p-8 shadow-xl rounded-2xl bg-white">
-        <h2 className="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800">
-          Welcome Back! Please Login
-        </h2>
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#05060F] px-4 py-10">
+      
+      {/* BACKGROUND GLOW */}
+      <div className="absolute left-1/2 top-[-200px] h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[140px]" />
 
+      {/* LOGIN CARD */}
+      <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur-2xl sm:p-8">
+        
+        {/* TOP */}
+        <div className="text-center">
+          
+          <h1 className="text-3xl font-bold tracking-tight text-white">
+            Welcome Back
+          </h1>
+
+          <p className="mt-3 text-sm text-zinc-400">
+            Login to continue your journey.
+          </p>
+        </div>
+
+        {/* FORM */}
         <form
           onSubmit={handleLogin}
-          className="space-y-5"
+          className="mt-10 space-y-6"
         >
-          {/* Email */}
+          
+          {/* EMAIL */}
           <div>
-            <label className="text-sm text-gray-600">
+            
+            <label className="mb-2 block text-sm font-medium text-zinc-300">
               Email{" "}
               <span className="text-red-500">
                 *
               </span>
             </label>
 
-            <input
-              type="email"
-              value={form.email}
-              placeholder="Enter your email"
-              autoComplete="email"
-              className={`w-full border rounded-lg px-3 py-2 mt-1
-              bg-white text-black placeholder:text-gray-400
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${
-                errors.email
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
-              }`}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  email:
-                    e.target.value,
-                })
-              }
-            />
+            <div className="relative">
+              
+              <HiOutlineMail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+
+              <input
+                type="email"
+                value={form.email}
+                placeholder="rashed@gmail.com"
+                autoComplete="email"
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    email:
+                      e.target.value,
+                  })
+                }
+                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+              />
+            </div>
 
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="mt-2 text-sm text-red-500">
                 {errors.email}
               </p>
             )}
           </div>
 
-          {/* Password */}
-          <div className="relative">
-            <label className="text-sm text-gray-600">
+          {/* PASSWORD */}
+          <div>
+            
+            <label className="mb-2 block text-sm font-medium text-zinc-300">
               Password{" "}
               <span className="text-red-500">
                 *
               </span>
             </label>
 
-            <input
-              type={
-                showPassword
-                  ? "text"
-                  : "password"
-              }
-              value={form.password}
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              className={`w-full border rounded-lg px-3 py-2 mt-1 pr-10
-              bg-white text-black placeholder:text-gray-400
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${
-                errors.password
-                  ? "border-red-500"
-                  : "border-gray-300 focus:border-blue-500"
-              }`}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  password:
-                    e.target.value,
-                })
-              }
-            />
+            <div className="relative">
+              
+              <FiLock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
 
-            {/* 👁 Show / Hide Password */}
-            <button
-              type="button"
-              onClick={() =>
-                setShowPassword(
-                  !showPassword
-                )
-              }
-              className="absolute right-3 top-10 text-gray-500"
-            >
-              {showPassword ? (
-                <FaEyeSlash />
-              ) : (
-                <FaEye />
-              )}
-            </button>
-
-            {/* Password Error */}
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {
-                  errors.password
+              <input
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
                 }
+                value={form.password}
+                placeholder="********"
+                autoComplete="current-password"
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    password:
+                      e.target.value,
+                  })
+                }
+                className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-12 pr-12 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-500"
+              />
+
+              {/* SHOW / HIDE */}
+              <button
+                type="button"
+                onClick={() =>
+                  setShowPassword(
+                    !showPassword
+                  )
+                }
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 transition hover:text-white"
+              >
+                {showPassword ? (
+                  <FaEyeSlash className="h-5 w-5" />
+                ) : (
+                  <FaEye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+
+            {/* PASSWORD HINT */}
+            <p className="mt-2 text-xs text-zinc-500">
+              Password must contain uppercase,
+              lowercase and minimum 6 characters.
+            </p>
+
+            {errors.password && (
+              <p className="mt-2 text-sm text-red-500">
+                {errors.password}
               </p>
             )}
           </div>
 
-          {/* Forgot password */}
-          <div className="text-right">
+          {/* FORGOT PASSWORD */}
+          <div className="flex justify-end">
+            
             <Link
               href="/forgot-password"
-              className="text-sm text-blue-600 hover:underline"
+              className="text-sm font-medium text-indigo-400 transition hover:text-indigo-300"
             >
               Forgot password?
             </Link>
           </div>
 
-          {/* Login Button */}
-          <Button
+          {/* LOGIN BUTTON */}
+          <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            className="h-12 w-full rounded-xl bg-indigo-600 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-50"
           >
             {loading
               ? "Loading..."
               : "Login"}
-          </Button>
-        </form>
+          </button>
 
-        {/* Divider */}
-        <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-gray-300"></div>
+          {/* DIVIDER */}
+          <div className="flex items-center gap-4">
+            
+            <div className="h-px flex-1 bg-white/10" />
 
-          <span className="text-sm text-gray-500">
-            OR
-          </span>
+            <span className="text-sm text-zinc-500">
+              OR
+            </span>
 
-          <div className="flex-1 h-px bg-gray-300"></div>
-        </div>
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
 
-        {/* Google Login */}
-        <Button
-          onClick={
-            handleGoogleLogin
-          }
-          className="w-full flex items-center justify-center gap-2 border border-gray-300 bg-white text-black hover:bg-gray-100"
-        >
-          <FaGoogle />
-          Continue with Google
-        </Button>
-
-        {/* Register Link */}
-        <p className="text-center mt-5 text-sm text-gray-600">
-          Don’t have an account?{" "}
-          <Link
-            href="/signup"
-            className="text-blue-600 hover:underline"
+          {/* GOOGLE LOGIN */}
+          <button
+            type="button"
+            onClick={
+              handleGoogleLogin
+            }
+            className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] text-sm font-medium text-white transition hover:bg-white/[0.06]"
           >
-            Register
-          </Link>
-        </p>
-      </Card>
-    </div>
+            <FaGoogle className="text-lg" />
+
+            Continue with Google
+          </button>
+
+          {/* REGISTER */}
+          <p className="text-center text-sm text-zinc-400">
+            Don&apos;t have an account?{" "}
+
+            <Link
+              href="/signup"
+              className="font-medium text-indigo-400 transition hover:text-indigo-300"
+            >
+              Register
+            </Link>
+          </p>
+        </form>
+      </div>
+    </section>
   );
 }
