@@ -346,11 +346,12 @@ export default function CustomNavbar() {
                 >
 
                   <Avatar.Image
-                    alt={
-                      user?.name ||
-                      "User"
+                    alt={user?.name || "User"}
+                    src={
+                      user?.image?.startsWith("data:image")
+                        ? undefined
+                        : user?.image
                     }
-                    src={user?.image}
                     referrerPolicy="no-referrer"
                   />
 

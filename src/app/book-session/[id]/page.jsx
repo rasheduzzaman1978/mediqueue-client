@@ -4,13 +4,19 @@ import Link from "next/link";
 
 import { X } from "lucide-react";
 import Image from "next/image";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-async function getTutor(id) {
-
+async function getTutor(id, token = null) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
     {
       cache: "no-store",
+      headers: token
+        ? {
+            authorization: `Bearer ${token}`,
+          }
+        : {},
     }
   );
 
@@ -23,8 +29,13 @@ export default async function BookSessionPage({
 
   const { id } = await params;
 
-  const tutor =
-    await getTutor(id);
+  const session = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  const token = session?.token;
+
+  const tutor = await getTutor(id, token);
 
   return (
 
@@ -92,8 +103,8 @@ export default async function BookSessionPage({
         ">
 
           <Image
-            src={tutor.photo}
-            alt={tutor.tutorName}
+            src={tutor?.photo || "/default-user.png"}
+            alt={tutor?.tutorName || "Tutor"}
             width={64}
             height={64}
             className="rounded-full object-cover border-2 border-blue-500"

@@ -1,12 +1,14 @@
 
 import { DeleteAlert } from "@/components/DeleteAlert";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 import Image from "next/image";
 import Link from "next/link";
 
 import { BsPencil } from "react-icons/bs";
 
-async function getTutor(id) {
+async function getTutor(id, token = null) {
 
   try {
 
@@ -14,6 +16,11 @@ async function getTutor(id) {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${id}`,
       {
         cache: "no-store",
+        headers: token 
+        ? {
+          authorization: `Bearer ${token}`,
+        }
+        : {},
       }
     );
 
@@ -54,10 +61,15 @@ export default async function TutorDetailsPage({
 
   const { id } = await params;
 
-  const tutor =
-    await getTutor(id);
+  const session = await auth.api.getToken({
+    headers: await headers(),
+  });
 
-  // Tutor Not Found
+  const token = session?.token;
+
+  console.log("Server Token:", token);
+
+  const tutor = await getTutor(id, token);
 
   if (!tutor) {
 
@@ -70,6 +82,7 @@ export default async function TutorDetailsPage({
       </div>
     );
   }
+
 
   return (
 
