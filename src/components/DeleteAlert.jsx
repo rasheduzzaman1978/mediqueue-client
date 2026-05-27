@@ -1,57 +1,108 @@
 "use client";
 
 import { BsTrash2 } from "react-icons/bs";
-import { AlertDialog, Button } from "@heroui/react";
+
+import {
+  AlertDialog,
+  Button,
+} from "@heroui/react";
+
 import { useRouter } from "next/navigation";
+
 import { toast } from "react-toastify";
 
-export function DeleteAlert({ tutor }) {
+import { authClient } from "@/lib/auth-client";
 
-  const { _id, tutorName } = tutor;
+export function DeleteAlert({
+  tutor,
+}) {
+
+  const {
+    _id,
+    tutorName,
+  } = tutor;
 
   const router = useRouter();
 
-  const handleDelete = async () => {
+  // ==================================================
+  // DELETE TUTOR
+  // ==================================================
 
-    try {
+  const handleDelete =
+    async () => {
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${_id}`,
-        {
-          method: "DELETE",
+      try {
+
+        // ================= GET JWT TOKEN =================
+
+        const {
+          data: tokenData,
+        } =
+          await authClient.token();
+
+        // ================= DELETE REQUEST =================
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors/${_id}`,
+          {
+            method: "DELETE",
+
+            headers: {
+              Authorization:
+                `Bearer ${tokenData?.token}`,
+            },
+          }
+        );
+
+        const data =
+          await res.json();
+
+        // ================= SUCCESS =================
+
+        if (
+          res.ok &&
+          data.success
+        ) {
+
+          toast.success(
+            `${tutorName} deleted successfully`
+          );
+
+          router.push(
+            "/tutors"
+          );
+
+          router.refresh();
+
+        } else {
+
+          toast.error(
+            data.message ||
+            "Delete failed"
+          );
         }
-      );
 
-      const data = await res.json();
+      } catch (error) {
 
-      if (res.ok && data.success) {
+        console.log(error);
 
-        toast.success(`${tutorName} deleted successfully`);
-
-        router.push("/tutors");
-
-        router.refresh();
-
-      } else {
-
-        toast.error(data.message || "Delete failed");
+        toast.error(
+          "Something went wrong"
+        );
       }
-
-    } catch (error) {
-
-      console.log(error);
-
-      toast.error("Something went wrong");
-    }
-  };
+    };
 
   return (
 
     <AlertDialog>
 
-      {/* Open Modal Button */}
+      {/* ================= OPEN BUTTON ================= */}
+
       <Button
-        className="text-red-500 rounded-none"
+        className="
+          text-red-500
+          rounded-none
+        "
         variant="outline"
       >
 
@@ -61,54 +112,84 @@ export function DeleteAlert({ tutor }) {
 
       </Button>
 
-      {/* Modal */}
+      {/* ================= MODAL ================= */}
+
       <AlertDialog.Backdrop>
 
         <AlertDialog.Container>
 
-          <AlertDialog.Dialog className="sm:max-w-[400px]">
+          <AlertDialog.Dialog
+            className="
+              sm:max-w-[400px]
+            "
+          >
 
             <AlertDialog.CloseTrigger />
 
-            {/* Header */}
+            {/* ================= HEADER ================= */}
+
             <AlertDialog.Header>
 
-              <AlertDialog.Icon status="danger" />
+              <AlertDialog.Icon
+                status="danger"
+              />
 
               <AlertDialog.Heading>
+
                 Delete tutor permanently?
+
               </AlertDialog.Heading>
 
             </AlertDialog.Header>
 
-            {/* Body */}
+            {/* ================= BODY ================= */}
+
             <AlertDialog.Body>
 
               <p>
+
                 This will permanently delete
-                <strong> {tutorName} </strong>
+
+                <strong>
+                  {" "}
+                  {tutorName}{" "}
+                </strong>
+
                 and all of its data.
+
                 This action cannot be undone.
+
               </p>
 
             </AlertDialog.Body>
 
-            {/* Footer */}
+            {/* ================= FOOTER ================= */}
+
             <AlertDialog.Footer>
 
-              <Button
-                slot="close"
-                variant="tertiary"
-              >
-                Cancel
-              </Button>
+              {/* CANCEL */}
 
               <Button
-                onClick={handleDelete}
                 slot="close"
-                variant="danger"
+                variant="light"
               >
+
+                Cancel
+
+              </Button>
+
+              {/* DELETE */}
+
+              <Button
+                onClick={
+                  handleDelete
+                }
+                slot="close"
+                color="danger"
+              >
+
                 Delete
+
               </Button>
 
             </AlertDialog.Footer>

@@ -57,8 +57,14 @@ export default function RootLayout({
           <Footer />
 
           <ToastContainer
-            position="top-center"
-            autoClose={1500}
+            position="top-right"
+            autoClose={1200}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            pauseOnHover
+            draggable
+            theme="light"
           />
 
         </ThemeProvider>

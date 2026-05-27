@@ -6,6 +6,8 @@ import Image from "next/image";
 
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 import { toast } from "react-toastify";
 
 import {
@@ -18,6 +20,10 @@ import { DeleteAlert } from "@/components/DeleteAlert";
 
 export default function MyTutorsClient() {
 
+  // ================= ROUTER =================
+
+  const router = useRouter();
+
   // ================= STATES =================
 
   const [tutors, setTutors] =
@@ -28,35 +34,87 @@ export default function MyTutorsClient() {
 
   // ================= SESSION =================
 
-  const { data: session } =
-    authClient.useSession();
+  const {
+    data: session,
+    isPending,
+  } = authClient.useSession();
 
-  // ================= FETCH TUTORS =================
+  // ==================================================
+  // PROTECT ROUTE
+  // ==================================================
+
+  useEffect(() => {
+
+    if (
+      !isPending &&
+      !session
+    ) {
+
+      router.push("/login");
+    }
+
+  }, [
+    session,
+    isPending,
+    router,
+  ]);
+
+  // ==================================================
+  // FETCH TUTORS
+  // ==================================================
 
   useEffect(() => {
 
     const fetchTutors =
       async () => {
 
-        if (
-          !session?.user?.email
-        ) {
-
-          setLoading(false);
-
-          return;
-        }
-
         try {
 
+          if (!session?.user) {
+
+            setLoading(false);
+
+            return;
+          }
+
+          // ================= GET TOKEN =================
+
+          const {
+            data: tokenData,
+          } =
+            await authClient.token();
+
+          // ================= API REQUEST =================
+
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors?email=${session.user.email}`
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/my-tutors`,
+            {
+              headers: {
+                Authorization:
+                  `Bearer ${tokenData?.token}`,
+              },
+            }
           );
+
+          // ================= HANDLE ERROR =================
+
+          if (!res.ok) {
+
+            throw new Error(
+              "Failed to fetch tutors"
+            );
+          }
 
           const data =
             await res.json();
 
-          setTutors(data);
+          // ================= SAFE ARRAY =================
+
+          setTutors(
+            Array.isArray(data)
+              ? data
+              : []
+          );
 
         } catch (error) {
 
@@ -66,17 +124,49 @@ export default function MyTutorsClient() {
             "Failed to load tutors"
           );
 
+          setTutors([]);
+
         } finally {
 
           setLoading(false);
         }
       };
 
-    fetchTutors();
+    if (session?.user) {
+
+      fetchTutors();
+    }
 
   }, [session]);
 
-  // ================= LOADING =================
+  // ==================================================
+  // SESSION LOADING
+  // ==================================================
+
+  if (isPending) {
+
+    return (
+
+      <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-b dark:from-[#020817] dark:to-[#071226] flex items-center justify-center text-black dark:text-white text-3xl font-black">
+
+        Loading...
+
+      </div>
+    );
+  }
+
+  // ==================================================
+  // BLOCK UNAUTHORIZED USER
+  // ==================================================
+
+  if (!session) {
+
+    return null;
+  }
+
+  // ==================================================
+  // DATA LOADING
+  // ==================================================
 
   if (loading) {
 
@@ -241,162 +331,163 @@ export default function MyTutorsClient() {
 
               <tbody>
 
-                {tutors.map((tutor) => (
+                {Array.isArray(tutors) &&
+                  tutors.map((tutor) => (
 
-                  <tr
-                    key={tutor._id}
-                    className="
-                      border-b border-gray-100
-                      dark:border-white/5
-                      hover:bg-gray-50
-                      dark:hover:bg-white/5
-                      transition-all duration-300
-                    "
-                  >
+                    <tr
+                      key={tutor._id}
+                      className="
+                        border-b border-gray-100
+                        dark:border-white/5
+                        hover:bg-gray-50
+                        dark:hover:bg-white/5
+                        transition-all duration-300
+                      "
+                    >
 
-                    {/* Tutor */}
+                      {/* Tutor */}
 
-                    <td className="px-4 md:px-6 py-4 md:py-5">
+                      <td className="px-4 md:px-6 py-4 md:py-5">
 
-                      <div className="flex items-center gap-3 min-w-[180px]">
+                        <div className="flex items-center gap-3 min-w-[180px]">
 
-                        <Image
-                          src={tutor.photo}
-                          alt={tutor.tutorName}
-                          width={60}
-                          height={60}
-                          className="
-                            w-12 h-12 md:w-[60px] md:h-[60px]
-                            rounded-2xl
-                            object-cover
-                            border
-                            border-gray-200
-                            dark:border-white/10
-                            flex-shrink-0
-                          "
-                        />
+                          <Image
+                            src={tutor.photo}
+                            alt={tutor.tutorName}
+                            width={60}
+                            height={60}
+                            className="
+                              w-12 h-12 md:w-[60px] md:h-[60px]
+                              rounded-2xl
+                              object-cover
+                              border
+                              border-gray-200
+                              dark:border-white/10
+                              flex-shrink-0
+                            "
+                          />
 
-                        <div className="min-w-0">
+                          <div className="min-w-0">
 
-                          <h3 className="font-bold text-sm md:text-lg truncate">
-                            {tutor.tutorName}
-                          </h3>
+                            <h3 className="font-bold text-sm md:text-lg truncate">
+                              {tutor.tutorName}
+                            </h3>
 
-                          <p className="hidden md:block text-sm text-gray-500 dark:text-gray-400">
-                            Private Tutor
-                          </p>
+                            <p className="hidden md:block text-sm text-gray-500 dark:text-gray-400">
+                              Private Tutor
+                            </p>
+
+                          </div>
 
                         </div>
 
-                      </div>
+                      </td>
 
-                    </td>
+                      {/* Subject */}
 
-                    {/* Subject */}
+                      <td className="px-4 md:px-6 py-4 md:py-5">
 
-                    <td className="px-4 md:px-6 py-4 md:py-5">
-
-                      <span
-                        className="
-                          inline-flex
-                          items-center
-                          px-3 md:px-4 py-2
-                          rounded-xl
-                          bg-purple-100
-                          dark:bg-purple-500/20
-                          text-purple-700
-                          dark:text-purple-300
-                          font-semibold
-                          text-xs md:text-sm
-                          whitespace-nowrap
-                        "
-                      >
-                        {tutor.subject}
-                      </span>
-
-                    </td>
-
-                    {/* Institution */}
-
-                    <td className="hidden lg:table-cell px-6 py-5 whitespace-nowrap">
-
-                      {tutor.institution}
-
-                    </td>
-
-                    {/* Fee */}
-
-                    <td className="px-4 md:px-6 py-4 md:py-5 whitespace-nowrap">
-
-                      <span className="font-bold text-green-600 dark:text-green-400 text-sm md:text-base">
-
-                        ${tutor.hourlyFee}/hr
-
-                      </span>
-
-                    </td>
-
-                    {/* Slots */}
-
-                    <td className="px-4 md:px-6 py-4 md:py-5">
-
-                      <span
-                        className="
-                          inline-flex
-                          items-center
-                          justify-center
-                          min-w-[38px]
-                          h-[38px]
-                          rounded-xl
-                          bg-blue-100
-                          dark:bg-blue-500/20
-                          text-blue-700
-                          dark:text-blue-300
-                          font-bold
-                          text-xs md:text-sm
-                        "
-                      >
-                        {tutor.totalSlot}
-                      </span>
-
-                    </td>
-
-                    {/* Actions */}
-
-                    <td className="px-4 md:px-6 py-4 md:py-5">
-
-                      <div className="flex items-center justify-center gap-3 min-w-[140px]">
-
-                        {/* UPDATE */}
-
-                        <Link
-                          href={`/tutors/edit/${tutor._id}`}
+                        <span
                           className="
-                            w-10 h-10 md:w-11 md:h-11
-                            rounded-2xl
-                            bg-blue-500/15
-                            hover:bg-blue-500
-                            text-blue-500
-                            hover:text-white
-                            flex items-center justify-center
-                            transition-all duration-300
-                            hover:scale-110
-                            flex-shrink-0
+                            inline-flex
+                            items-center
+                            px-3 md:px-4 py-2
+                            rounded-xl
+                            bg-purple-100
+                            dark:bg-purple-500/20
+                            text-purple-700
+                            dark:text-purple-300
+                            font-semibold
+                            text-xs md:text-sm
+                            whitespace-nowrap
                           "
                         >
-                          <BsPencilSquare className="text-sm md:text-lg" />
-                        </Link>
+                          {tutor.subject}
+                        </span>
 
-                        {/* DELETE */}
+                      </td>
 
-                        <DeleteAlert tutor={tutor} />
+                      {/* Institution */}
 
-                      </div>
+                      <td className="hidden lg:table-cell px-6 py-5 whitespace-nowrap">
 
-                    </td>
+                        {tutor.institution}
 
-                  </tr>
-                ))}
+                      </td>
+
+                      {/* Fee */}
+
+                      <td className="px-4 md:px-6 py-4 md:py-5 whitespace-nowrap">
+
+                        <span className="font-bold text-green-600 dark:text-green-400 text-sm md:text-base">
+
+                          ${tutor.hourlyFee}/hr
+
+                        </span>
+
+                      </td>
+
+                      {/* Slots */}
+
+                      <td className="px-4 md:px-6 py-4 md:py-5">
+
+                        <span
+                          className="
+                            inline-flex
+                            items-center
+                            justify-center
+                            min-w-[38px]
+                            h-[38px]
+                            rounded-xl
+                            bg-blue-100
+                            dark:bg-blue-500/20
+                            text-blue-700
+                            dark:text-blue-300
+                            font-bold
+                            text-xs md:text-sm
+                          "
+                        >
+                          {tutor.totalSlot}
+                        </span>
+
+                      </td>
+
+                      {/* Actions */}
+
+                      <td className="px-4 md:px-6 py-4 md:py-5">
+
+                        <div className="flex items-center justify-center gap-3 min-w-[140px]">
+
+                          {/* UPDATE */}
+
+                          <Link
+                            href={`/tutors/edit/${tutor._id}`}
+                            className="
+                              w-10 h-10 md:w-11 md:h-11
+                              rounded-2xl
+                              bg-blue-500/15
+                              hover:bg-blue-500
+                              text-blue-500
+                              hover:text-white
+                              flex items-center justify-center
+                              transition-all duration-300
+                              hover:scale-110
+                              flex-shrink-0
+                            "
+                          >
+                            <BsPencilSquare className="text-sm md:text-lg" />
+                          </Link>
+
+                          {/* DELETE */}
+
+                          <DeleteAlert tutor={tutor} />
+
+                        </div>
+
+                      </td>
+
+                    </tr>
+                  ))}
 
               </tbody>
 

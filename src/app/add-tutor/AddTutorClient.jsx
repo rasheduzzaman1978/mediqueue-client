@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 
 import { toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
+
 import { authClient } from "@/lib/auth-client";
 
 export default function AddTutorClient() {
@@ -18,7 +20,9 @@ export default function AddTutorClient() {
   const [loading, setLoading] =
     useState(false);
 
-  // ================= ADD TUTOR =================
+  // ==================================================
+  // ADD TUTOR
+  // ==================================================
 
   const handleAddTutor =
     async (e) => {
@@ -47,10 +51,14 @@ export default function AddTutorClient() {
           form.availableTime.value,
 
         hourlyFee:
-          form.hourlyFee.value,
+          parseInt(
+            form.hourlyFee.value
+          ),
 
         totalSlot:
-          form.totalSlot.value,
+          parseInt(
+            form.totalSlot.value
+          ),
 
         sessionStartDate:
           form.sessionStartDate.value,
@@ -76,6 +84,15 @@ export default function AddTutorClient() {
 
       try {
 
+        // ================= GET TOKEN =================
+
+        const {
+          data: tokenData,
+        } =
+          await authClient.token();
+
+        // ================= API REQUEST =================
+
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/tutors`,
           {
@@ -84,6 +101,9 @@ export default function AddTutorClient() {
             headers: {
               "Content-Type":
                 "application/json",
+
+              Authorization:
+                `Bearer ${tokenData?.token}`,
             },
 
             body: JSON.stringify(
@@ -94,6 +114,8 @@ export default function AddTutorClient() {
 
         const data =
           await res.json();
+
+        // ================= SUCCESS =================
 
         if (
           data.success ||
@@ -118,7 +140,7 @@ export default function AddTutorClient() {
 
           toast.error(
             data.message ||
-              "Failed to add tutor!"
+            "Failed to add tutor!"
           );
         }
 
@@ -138,32 +160,62 @@ export default function AddTutorClient() {
 
   return (
 
-    <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-b dark:from-[#020817] dark:to-[#071226] text-black dark:text-white py-16 px-6 transition-colors duration-300">
+    <div className="
+      min-h-screen
+      bg-gray-100
+      dark:bg-gradient-to-b
+      dark:from-[#020817]
+      dark:to-[#071226]
+      text-black
+      dark:text-white
+      py-16
+      px-6
+      transition-colors
+      duration-300
+    ">
 
       <div className="
-        max-w-4xl mx-auto
-        bg-white dark:bg-white/5
+        max-w-4xl
+        mx-auto
+        bg-white
+        dark:bg-white/5
         backdrop-blur-md
-        border border-gray-200 dark:border-white/10
+        border
+        border-gray-200
+        dark:border-white/10
         rounded-3xl
-        p-8 md:p-12
+        p-8
+        md:p-12
         shadow-2xl
-        transition-all duration-300
+        transition-all
+        duration-300
       ">
 
         {/* Heading */}
 
         <div className="text-center mb-12">
 
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black">
+          <h1 className="
+            text-2xl
+            md:text-4xl
+            lg:text-5xl
+            font-black
+          ">
 
             Add New Tutor
 
           </h1>
 
-          <p className="text-gray-600 dark:text-gray-400 mt-4 text-lg">
+          <p className="
+            text-gray-600
+            dark:text-gray-400
+            mt-4
+            text-lg
+          ">
 
-            Create tutor profile and start offering learning sessions.
+            Create tutor profile and
+            start offering learning
+            sessions.
 
           </p>
 
@@ -199,10 +251,14 @@ export default function AddTutorClient() {
                 placeholder="Enter tutor name"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -229,10 +285,14 @@ export default function AddTutorClient() {
                 placeholder="Enter image URL"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -263,11 +323,16 @@ export default function AddTutorClient() {
                 required
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  text-black dark:text-white
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  text-black
+                  dark:text-white
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -322,11 +387,16 @@ export default function AddTutorClient() {
                 required
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  text-black dark:text-white
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  text-black
+                  dark:text-white
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -375,10 +445,14 @@ export default function AddTutorClient() {
                 placeholder="Example: Sun - Thu"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -403,10 +477,14 @@ export default function AddTutorClient() {
                 placeholder="Example: 5 PM - 8 PM"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -437,10 +515,14 @@ export default function AddTutorClient() {
                 placeholder="Enter hourly fee"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -465,10 +547,14 @@ export default function AddTutorClient() {
                 placeholder="Enter total slots"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -498,10 +584,14 @@ export default function AddTutorClient() {
                 required
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -526,10 +616,14 @@ export default function AddTutorClient() {
                 placeholder="Area / City"
                 className="
                   w-full
-                  bg-gray-100 dark:bg-[#0B1730]
-                  border border-gray-300 dark:border-white/10
+                  bg-gray-100
+                  dark:bg-[#0B1730]
+                  border
+                  border-gray-300
+                  dark:border-white/10
                   rounded-xl
-                  px-4 py-3
+                  px-4
+                  py-3
                   outline-none
                   focus:ring-2
                   focus:ring-blue-500
@@ -558,10 +652,14 @@ export default function AddTutorClient() {
               placeholder="Enter institution name"
               className="
                 w-full
-                bg-gray-100 dark:bg-[#0B1730]
-                border border-gray-300 dark:border-white/10
+                bg-gray-100
+                dark:bg-[#0B1730]
+                border
+                border-gray-300
+                dark:border-white/10
                 rounded-xl
-                px-4 py-3
+                px-4
+                py-3
                 outline-none
                 focus:ring-2
                 focus:ring-blue-500
@@ -588,10 +686,14 @@ export default function AddTutorClient() {
               placeholder="Write tutor experience..."
               className="
                 w-full
-                bg-gray-100 dark:bg-[#0B1730]
-                border border-gray-300 dark:border-white/10
+                bg-gray-100
+                dark:bg-[#0B1730]
+                border
+                border-gray-300
+                dark:border-white/10
                 rounded-xl
-                px-4 py-3
+                px-4
+                py-3
                 outline-none
                 focus:ring-2
                 focus:ring-blue-500
@@ -612,7 +714,8 @@ export default function AddTutorClient() {
               hover:bg-blue-700
               dark:bg-blue-500
               dark:hover:bg-blue-600
-              transition-all duration-300
+              transition-all
+              duration-300
               py-4
               rounded-2xl
               font-bold
