@@ -99,7 +99,7 @@ export default function TutorCard({
             text-gray-700
             dark:text-gray-300
             leading-relaxed
-            mb-6
+            mb-4
           "
         >
 
@@ -107,6 +107,29 @@ export default function TutorCard({
           experience in{" "}
           {tutor.subject.toLowerCase()}{" "}
           teaching
+
+        </p>
+
+        {/* REGISTRATION DATE */}
+
+        <p
+          className="
+            text-sm
+            text-gray-500
+            dark:text-gray-400
+            mb-6
+          "
+        >
+
+          Registered on:{" "}
+
+          {
+            tutor.createdAt
+              ? new Date(
+                  tutor.createdAt
+                ).toLocaleDateString()
+              : "N/A"
+          }
 
         </p>
 
