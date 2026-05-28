@@ -37,21 +37,21 @@ export const auth = betterAuth({
        maxAge: 60 * 60 * 24 * 7, // 7 days
     }
   },
-  plugins: [
-    jwt()
-  ],
+  // plugins: [
+  //   jwt()
+  // ],
 
-//   plugins: [
-//   jwt({
-//     jwt: {
-//       definePayload: ({ user }) => ({
-//         id: user.id,
-//         email: user.email,
-//         name: user.name,
-//       }),
-//     },
-//   }),
-// ],
+  plugins: [
+  jwt({
+    jwt: {
+      definePayload: ({ user }) => ({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      }),
+    },
+  }),
+],
 
   // 🔥 recommended
   secret: process.env.BETTER_AUTH_SECRET,
