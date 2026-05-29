@@ -15,6 +15,8 @@ export const auth = betterAuth({
   // 🔥 ADD THIS (MOST IMPORTANT)
   trustedOrigins: [
     process.env.BETTER_AUTH_URL,
+     "http://localhost:3000",
+     "https://mediqueue-client-snowy.vercel.app",
     
   ],
 
