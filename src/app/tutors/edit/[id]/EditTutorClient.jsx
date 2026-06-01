@@ -251,7 +251,11 @@ export default function EditTutorClient({
 
         setTimeout(() => {
 
-          router.push("/tutors");
+          // router.push("/tutors");
+          //  router.back(); // আগের পেজে ফিরে যাবে
+          //  window.history.back();
+           router.replace("/my-tutors");
+
 
         }, 1000);
 

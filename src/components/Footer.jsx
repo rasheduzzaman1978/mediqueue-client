@@ -70,7 +70,7 @@ export default function Footer() {
               <li>
 
                 <Link
-                  href="/find-tutors"
+                  href="/tutors"
                   className="hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300"
                 >
 

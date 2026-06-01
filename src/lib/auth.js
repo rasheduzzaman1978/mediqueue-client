@@ -1,10 +1,14 @@
+import dns from "dns";
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { jwt } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGODB_URI);
-await client.connect();
+
 const db = client.db("mediqueue");
 
 export const auth = betterAuth({
@@ -55,12 +59,6 @@ export const auth = betterAuth({
   }),
 ],
 
-  // 🔥 recommended
-  secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
+ 
 });
 
-// optional
-process.on('SIGTERM', async () => {
-  await client.close();
-});

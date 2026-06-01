@@ -340,31 +340,16 @@ export default function CustomNavbar() {
 
                 {/* Avatar */}
 
-                <Avatar
-                  size="sm"
-                  className="cursor-pointer"
-                >
-
+                <Avatar className="cursor-pointer ring-2 ring-green-500">
                   <Avatar.Image
+                    src={user?.image}
                     alt={user?.name || "User"}
-                    src={
-                      user?.image?.startsWith("data:image")
-                        ? undefined
-                        : user?.image
-                    }
-                    referrerPolicy="no-referrer"
                   />
-
                   <Avatar.Fallback>
-
-                    {user?.name?.charAt(
-                      0
-                    ) || "G"}
-
+                    {user?.name?.charAt(0) || "G"}
                   </Avatar.Fallback>
-
                 </Avatar>
-
+                  
                 {/* Dropdown */}
 
                 <div className="absolute right-0 top-10 w-56 bg-white dark:bg-[#0B1120] text-black dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-50">
